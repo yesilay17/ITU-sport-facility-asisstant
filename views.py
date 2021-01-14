@@ -159,6 +159,7 @@ def reservation_tennis():
                     break
                 message = db.check_tennis_res(date_, time)
                 i+=1
+        this_week_dates=get_this_week()
         number_of_reservations = db.this_week_tennis_reservation(this_week_dates)
         day_names=day_names_of_this_week()
         rand=plot_tennis_res(number_of_reservations, day_names)
@@ -259,6 +260,7 @@ def reservation_carpet():
                     break
                 message = db.check_carpet_res(date_, time)
                 i+=1
+        this_week_dates=get_this_week()
         number_of_reservations = db.this_week_carpet_reservation(this_week_dates)
         day_names=day_names_of_this_week()
         rand=plot_carpet_res(number_of_reservations, day_names)
@@ -330,6 +332,7 @@ def carpet_res_manage():
                         sorted_date=sorted_date,
                         message=message
                     )
+            this_week_dates=get_this_week()
             number_of_reservations = db.this_week_carpet_reservation(this_week_dates)
             day_names=day_names_of_this_week()
             rand=plot_carpet_res(number_of_reservations, day_names)
@@ -361,6 +364,7 @@ def update_carpet_res(update_date):
     user=db.get_user()
     min_date=get_min_date()
     max_date=get_max_date()
+    this_week_dates=get_this_week()
     number_of_reservations = db.this_week_carpet_reservation(this_week_dates)
     day_names=day_names_of_this_week()
     rand=plot_carpet_res(number_of_reservations, day_names)
@@ -435,6 +439,7 @@ def tennis_res_manage():
                         sorted_date=sorted_date,
                         message=message
                     )
+            this_week_dates=get_this_week()
             number_of_reservations = db.this_week_tennis_reservation(this_week_dates)
             day_names=day_names_of_this_week()
             rand=plot_tennis_res(number_of_reservations, day_names)
@@ -643,7 +648,7 @@ def user_add_page():
         values={"username": username, "password": password, "name_surname": name_surname, "age": age, "status": status}
         if(new_user):
             db.sign_out()
-            return render_template("home.html", day=day_name, name=name_surname, userid=userid, username=username)
+            return render_template("home.html", day=day_name, name=name_surname, userid=userid)
         else:    
             return render_template("register.html", warning="This userid is used by another user, please try another one.", values=values)
 

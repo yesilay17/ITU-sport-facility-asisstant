@@ -4,12 +4,88 @@ mc=mysql.connector.connect(user="root", password ="159753", database="blg317e")
 
 mycursor=mc.cursor()
 
+sql="""
+CREATE DATABASE IF NOT EXISTS blg317e;
+USE BLG317E;
+
+CREATE TABLE IF NOT EXISTS user_(
+    userid INT NOT NULL UNIQUE,
+    username VARCHAR(50) NOT NULL,
+    password_ VARCHAR(50) NOT NULL,
+    name_surname VARCHAR(50) NOT NULL,
+    age INT NOT NULL,
+    status_ VARCHAR(50) NOT NULL,
+    PRIMARY KEY (userid)
+);
+
+CREATE TABLE IF NOT EXISTS gym(
+    gymid INT AUTO_INCREMENT NOT NULL UNIQUE,
+    userid INT NOT NULL UNIQUE,
+    PRIMARY KEY (gymid),
+    FOREIGN KEY (userid) 
+        REFERENCES user_(userid)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS tennis(
+    tennisid INT AUTO_INCREMENT NOT NULL UNIQUE,
+    userid INT NOT NULL UNIQUE,
+    PRIMARY KEY (tennisid),
+    FOREIGN KEY (userid) 
+        REFERENCES user_(userid)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS carpet(
+    carpetid INT AUTO_INCREMENT NOT NULL UNIQUE,
+    userid INT NOT NULL UNIQUE,
+    PRIMARY KEY (carpetid),
+    FOREIGN KEY (userid) REFERENCES user_(userid)
+);
+
+CREATE TABLE IF NOT EXISTS pool(
+    poolid INT AUTO_INCREMENT NOT NULL UNIQUE,
+    userid INT NOT NULL UNIQUE,
+    PRIMARY KEY (poolid),
+    FOREIGN KEY (userid)
+        REFERENCES user_(userid)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS carpet_res(
+    carpet_res_id INT AUTO_INCREMENT NOT NULL UNIQUE,
+    carpetid INT NOT NULL UNIQUE,
+    day_ VARCHAR(15) NOT NULL,
+    time_slot VARCHAR(15) NOT NULL,
+    PRIMARY KEY (carpet_res_id),
+    FOREIGN KEY (carpetid) 
+        REFERENCES carpet(carpetid)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS tennis_res(
+    tennis_res_id INT AUTO_INCREMENT NOT NULL UNIQUE,
+    tennisid INT NOT NULL UNIQUE,
+    day_ VARCHAR(15) NOT NULL,
+    time_slot VARCHAR(15) NOT NULL,
+    PRIMARY KEY (tennis_res_id),
+    FOREIGN KEY (tennisid) 
+        REFERENCES tennis(tennisid)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);"""
 
 from objects import User
     
 class Database:
     def __init__(self):
         self.__userid = -1
+        mycursor.execute(sql,  multi=True)
+        mc.commit()
 
     def add_user(self, user, userid):
         self.__userid=userid
