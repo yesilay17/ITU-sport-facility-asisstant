@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block title %}	<h1>Football Field Carpets{% if username %}<br><a href="/register_carpet"><button >REGISTER</button></a>
+{% if register %}<a href="/reservation_carpet"><button >RESERVE</button></a><br>
+{% else %}<p style="color:red"> You have to register before make a reservation!</p>{% endif %}  
+{% else %}<p style="color:red"> You have to login before the resgistration!</p> 
+{% endif %}</h1>{% endblock %}
+	{% block content %}
+  {% if message %} <h3 style="color:red">{{ message }}</h3>{% endif %} 
+	<img class="img1" src="./static/halı-saha.jpg">
+
+  <p>Rules:</p>
+  <ul>
+    <li>Our 4 football field carpets in Ayazağa and Gümüşsuyu campuses serve our students, staff and users outside the University.</li>
+    <li>Football field carpets are open during the week between 17:00 and 21:00.</li>
+    <li>Note that you cannot make double reservation for same day.</li>
+    <li>You can make reservations up to a week later.</li>
+  </ul>
+
+	<p>Usage Fees:</p>
+		
+ <table>
+  <tr>
+    <th>CATEGORY</th>
+    <th>WEEKDAYS / WEEKEND</th>
+  </tr>
+  <tr>
+    <td> ITU student</td>
+    <td>50 TL</td>
+  </tr>
+  <tr>
+    <td>Staff</td>
+    <td>60 TL</td>
+  </tr>
+  <tr>
+    <td>Grad student</td>
+    <td>70 TL</td>
+  </tr>
+  <tr>
+    <td>External staff</td>
+    <td>80 TL</td>
+  </tr>
+  <tr>
+    <td>Guest</td>
+    <td>200 TL</td>
+  </tr>
+</table>
+{%endblock%}
+</body>   
+</html>

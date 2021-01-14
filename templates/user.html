@@ -1,0 +1,146 @@
+{% extends "layout.html" %}
+
+{% block title %}{% endblock %}
+  {% block content %}
+  {% if warning1 %} <p>{{ warning1}} </p>
+  <br>
+  <form action="" method="post" name="delete_info">
+  <button>Yes</button>
+  </form>
+  <a href="/user"><button>No</button></a>
+  {% else %}
+{% if update %} 
+  {% if message %} <p>{{message}}</p>{% endif %} 
+  <form action="" method="post" name="user_info">
+    <div class="field">
+     <table class="table" style="margin-left: auto; margin-right: auto;">
+      <tr>
+        <td><label for="username" class="label">Username:</label></td>
+        <td>
+          <div class="control"> 
+            <input type="text" name="username" class="input" required="required" value="{{ user.username }}"/>
+          </div> 
+        </td>  
+      </tr>
+      <tr>
+        <td><label for="userid" class="label">Userid:</label></td>
+        <td>
+          <div class="control"> 
+            <input type="number" name="userid" class="input" required="required" value="{{ userid }}"/>
+          </div> 
+        </td>  
+      </tr>
+      <tr>
+        <td><label for="name_surname" class="label">Name, surname:</label> </td>
+        <td>
+          <div class="control"> 
+            <input type="text" name="name_surname" class="input" required="required" value="{{ user.name_surname }}"/>
+          </div>  
+        </td>
+      </tr>
+      <tr>
+        <td><label for="password" class="label">Password:</label></td>
+        <td>
+          <div class="control"> 
+            <input type="password" name="password" class="input" required="required" value="{{ user.password }}"/>
+          </div> 
+        </td>  
+      </tr>
+      <tr>
+        <td><label for="age" class="label">Age:</label> </td>
+        <td>
+          <div class="control"> 
+            <input type="number" name="age" class="input" required="required" value="{{ user.age }}"/>
+          </div>  
+        </td>
+      </tr>
+      <tr>
+        <td><label for="status" class="label">Status:</label> </td>
+        <td>
+          <div class="control"> 
+            <input type="text" name="status" class="input" required="required" value="{{ user.status }}"/>
+          </div>  
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <div class="field is-grouped">
+            <div class="control">
+              <button class="button is-primary is-small">Update</button>
+            </div>
+         </div>
+       </td>
+      </tr>
+    </table>
+   </div>
+  </form>
+{% else %}
+<table class="table"  style="margin-left: auto;
+      margin-right: auto;">
+  <tr class="">
+    <th>User-ID:</th>
+    <th>{{ userid }}</th>
+  </tr>
+  <tr>
+    <th>Username:</th>
+    <th>{{ user.username }}</th>
+  </tr>
+  <tr>
+    <th>Name, surname:</th>
+    <th>{{ user.name_surname }}</th>
+  </tr>
+  <tr>
+    <th>Age:</th>
+    <th>{{ user.age }}</th>
+  </tr>
+  <tr>
+    <th>Status:</th>
+    <th>{{ user.status }}</th>
+  </tr>
+  <tr>
+    <th>Gym registration:</th>
+    <th>{% if gym %} Active
+       <a href="/delete_gym_registration"><button >Delete</button></th>
+    {% else %} Not active {% endif %}</th>
+  </tr>
+  <tr>
+    <th>Football field carpet registration:</th>
+    <th>{% if carpet %} Active
+       <a href="/delete_carpet_registration"><button >Delete</button></th>
+    {% else %} Not active {% endif %}</th>
+  </tr>
+  <tr>
+    <th>Swimming pool registration:</th>
+    <th>{% if pool %} Active
+       <a href="/delete_pool_registration"><button >Delete</button></th>
+    {% else %} Not active {% endif %}</th>
+  </tr>
+  <tr>
+    <th>Tennis court registration:</th>
+    <th>{% if tennis %} Active 
+      <a href="/delete_tennis_registration"><button >Delete</button></th>
+    {% else %} Not active {% endif %}</th>
+  </tr>
+  <tr>
+    <th>Tennis court reservation:</th>
+    <th>{% if tennis_res %} <a href="/tennis_res_manage"><button >Manage reservations</button></a>{% else %} None {% endif %}</th>
+  </tr>
+  <tr>
+    <th>Football field carpet reservation:</th>
+    <th>{% if carpet_res %} <a href="/carpet_res_manage"><button >Manage reservations</button></a>{% else %} None {% endif %}</th>
+  </tr>
+  <tr>
+    <th></th>
+    <th><a href="/update_user"><button >Update</button></a>
+    <a href="/delete_user"><button >Delete account</button></th>
+  </tr>
+</table>
+
+ {% endif %}
+{% endif %}  
+{%endblock%}
+</body>   
+</html>
+
+

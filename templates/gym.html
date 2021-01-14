@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block title %}	<h1>Wellness Center(GYM){% if username %}<br><a href="/register_gym"><button >REGISTER</button></a><br>
+{% else %}<p style="color:red"> You have to login before the resgistration!</p> 
+{% endif %}</h1>
+{% endblock %}
+	{% block content %} 
+  {% if message %} <h3 style="color:red">{{ message }}</h3>{% endif %}
+	<img class="img1" src="./static/gym.jpg">
+	<p>All ITU members and students, as well as our retired staff and graduates, can use the Wellness Center in Ayazağa Campus for a certain fee.</p>
+
+	<ul>
+	  <li>Wellness Center serves our users seven days a week, excluding public holidays.</li>
+	  <li>Wellness Center is open during the week between 08:30 and 22:00.</li>
+	</ul>  
+	<p>Usage Fees:</p>
+		
+ <table class="table">
+  <tr class="">
+    <th>CATEGORY</th>
+    <th>MONTHLY MEMBERSHIP</th>
+  </tr>
+  <tr>
+    <td> ITU student</td>
+    <td>20 TL</td>
+  </tr>
+  <tr>
+    <td>Staff</td>
+    <td>60 TL</td>
+  </tr>
+</table>
+{%endblock%}
+</body>   
+</html>

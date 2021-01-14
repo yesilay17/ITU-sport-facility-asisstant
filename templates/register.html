@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+
+{% block title %} {% endblock %}
+  {% block content %} 
+  {% if warning %} <p>{{ warning }}</p>  {% endif %}
+  <form action="" method="post" name="user_add">
+    <div class="field">
+     <table class="table" style="margin-left: auto;
+      margin-right: auto;">
+      <tr>
+        <td><label for="username" class="label">Username:</label> </td>
+        <td>
+          <div class="control"> 
+            <input type="text" name="username" class="input" required="required" value="{{ values['username'] }}"/>
+          </div>  
+        </td>
+      </tr>
+      <tr>
+        <td><label for="userid" class="label">Userid:</label> </td>
+        <td>
+          <div class="control"> 
+            <input type="text" name="userid" class="input" required="required"/>
+          </div>  
+        </td>
+      </tr>
+      <tr>
+        <td><label for="password" class="label">Password:</label></td>
+        <td>
+          <div class="control"> 
+            <input type="password" name="password" class="input" required="required" value="{{ values['password'] }}"/>
+          </div> 
+        </td>  
+      </tr>
+      <tr>
+        <td><label for="name_surname" class="label">Name, Surname</label></td>
+        <td>
+          <div class="control">  
+            <input type="text" name="name_surname" class="input" required="required" value="{{ values['name_surname'] }}"/>
+          </div> 
+        </td> 
+      </tr>
+      <tr>
+        <td><label for="age" class="label">Age:</label></td>
+        <td> 
+          <div class="control">  
+            <input type="number" name="age" class="input" min="{{ min_age }}" required="required" value="{{ values['age'] }}"/>
+          </div> 
+        </td>
+      </tr>
+      <tr>
+        <td><label for="status" class="label">Status:</label></td>
+        <td> 
+          <div class="control">  
+            <input type="text" name="status" class="input" required="required" value="{{ values['status'] }}"/>
+          </div> 
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <div class="field is-grouped">
+            <div class="control">
+              <button class="button is-primary is-small">Register</button>
+            </div>
+         </div>
+       </td>
+      </tr>
+    </table>
+   </div>
+  </form>
+{%endblock%}
+</body>   
+</html>
+
+

@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+
+{% block title %} <h1 style="text-align: center;">Tennis Court Reservation</h1>{% endblock %}
+  {% block content %}
+  {% if message %}<p style="color:red;">{{message}}</p>{% endif %}     
+   {% if date %}
+<form action="" method="post" name="tennis_res">     
+  <table class="table" style="margin-left: auto; margin-right: auto;">
+    <tr>
+      <th>Time slot \ Date</th>
+      <th>{{ date }}</th>
+    </tr>
+    <tr>
+      <th>08:00-10:00</th>
+      <td {% if reserved[0] %} class="reserved">Reserved
+        {% else %}<label>
+                  <input type="radio" name="time_slot" value="8"/>Available
+        </label>{% endif %}
+      </td>
+    </tr>
+    <tr>
+      <th>10:00-12:00</th>
+      <td {% if reserved[1] %} class="reserved">Reserved
+        {% else %}<label>
+                  <input type="radio" name="time_slot" value="10"/>Available
+        </label>{% endif %}
+      </td>
+    </tr>
+    <tr>
+      <th>12:00-14:00</th>
+      <td {% if reserved[2] %} class="reserved">Reserved
+        {% else %}<label >
+                  <input type="radio" name="time_slot" value="12"/>Available
+        </label>{% endif %}
+      </td>
+    </tr>
+    <tr>
+      <th>14:00-16:00</th>
+      <td {% if reserved[3] %} class="reserved">Reserved
+        {% else %}<label >
+                  <input type="radio" name="time_slot" value="14"/>Available
+        </label>{% endif %}
+      </td>  
+    </tr>
+    <tr></form>  
+      <form action="" method="get" name="tennis_res3">
+      <th> <a href=""><button>Select a new date</button></a>
+      </th>
+      </form>
+      <td><button class="button is-primary is-small">Confirm reservation</button> </td>
+      <input type="hidden" name="date_" value="{{date}}"/>
+    </tr>
+</table>
+    {% if update_date %}
+     <input type="hidden" name="update_date" value="{{update_date}}"/>{% endif %}
+    </form>  
+    {% else %}
+    <form action="" method="post" name="tennis_res2">
+    <table class="table" style="margin-left: auto; margin-right: auto;">
+      <th><input type="date" id="start" name="date"
+           value="{{min_date}}"
+           min="{{min_date}}" max="{{max_date}}">
+      </th>      
+    <th><button class="button is-primary is-small">Confirm date</button></th>
+     </table>
+     <br>
+      <img style="width: 520px; display: block; margin-left: auto; margin-right: auto;" src="{{image}}">
+    {% if update_date %}
+     <input type="hidden" name="update_date" value="{{update_date}}"/>{% endif %}
+    </form> 
+ {% endif %}
+{%endblock%}
+</body>   
+</html>

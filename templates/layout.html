@@ -1,0 +1,51 @@
+﻿
+<html lang="en">
+<head>
+    <title>ITU SPORT FACILITY ASSISTANT</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="/static/style.css?v=1" />
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+        }
+        td, th {
+            border: 1px solid #ffffff;
+            text-align: left;
+            padding: 12px 30px;
+                    }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+                    }
+        li {
+            font-family: arial;
+            font-size: 20px;
+        }
+
+    </style>
+</head>
+<body class="body1">
+
+    <div id="divh">
+        <img class="img2" src="./static/Istanbul_Technical_University_Logo.png">
+        <img class="img3" src="./static/Istanbul_Technical_University_Logo.png">
+        <a class="link1" href="{{ url_for('home_page') }}">Home</a>
+        <a class="link1" href="/gym">GYM</a>
+        <a class="link1" href="/carpet">Football Field Carpet</a>
+        <a class="link1" href="/pool">Swimming Pool</a>
+        <a class="link1" href="/tennis">Tennis Court</a>
+        <a class="link1" href="/login">Login</a>
+        <a class="link1" href="/register">Register</a>
+         {% if username %} <a class="link1"> Logined as: <a class="link1" style="color:blue" href="/user">{{ username }}</a> </a>{% endif %}
+         {% if username %} <a class="link1" href="/sign_out"> Logout</a>{% endif %}
+    </div>
+    {% block title %} {% endblock %}
+   {% block content %} {%endblock%}
+
+<br>
+<hr>
+<footer>&copy Hakan Yeşilay 2021</footer>
+
+</body>   
+</html>

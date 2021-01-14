@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+{% block title %} {% endblock %}
+  {% block content %} 
+ {% if userid %}<p>You have aldready logined.</p>   
+ {% else %}{% if wrong_data %} <p>{{ wrong_data }}</p> {% else %}
+ <br>
+  <form action="" method="post" name="user_add">
+    <div class="field">
+     <table class="table" style="margin-left: auto;
+      margin-right: auto;">
+      <tr>
+        <td><label for="userid" class="label">Userid:</label></td>
+        <td>
+          <div class="control"> 
+            <input type="text" name="userid" class="input" required="required"/>
+          </div> 
+        </td>  
+      </tr>
+      <tr>
+        <td><label for="username" class="label">Username:</label> </td>
+        <td>
+          <div class="control"> 
+            <input type="text" name="username" class="input" required="required" />
+          </div>  
+        </td>
+      </tr>
+      <tr>
+        <td><label for="password" class="label">Password:</label></td>
+        <td>
+          <div class="control"> 
+            <input type="password" name="password" class="input" required="required"/>
+          </div> 
+        </td>  
+      </tr>
+      <tr>
+        <td><a class="link2" href="/forgot_password">Forgot password?</a></td>
+        <td>
+          <div class="field is-grouped">
+            <div class="control">
+              <button class="button is-primary is-small">Login</button>
+            </div>
+         </div>
+       </td>
+      </tr>
+    </table>
+   </div>
+  </form>
+  {% endif %}
+  {% endif %}
+{%endblock%}
+</body>   
+</html>
+
+

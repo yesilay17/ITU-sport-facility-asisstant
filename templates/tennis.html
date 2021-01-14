@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+
+{% block title %}	
+ <img class="img1" src="./static/tennis.jpg">
+<h1>Tennis Courts {% if username %}<br><a href="/register_tennis"><button >REGISTER</button></a>
+{% if register %}<a href="/reservation_tennis">   <button >RESERVE</button></a><br>
+{% else %}<p style="color:red"> You have to register before make a reservation!</p>{% endif %}  
+{% else %}<p style="color:red"> You have to login before the resgistration!</p> 
+{% endif %}</h1>
+{% if message %} <h3 style="color:red">{{ message }}</h3>{% endif %} {% endblock %}
+
+	{% block content %} 
+ 
+	<p>Tennis courts are open during the week between 08:00 and 16:00.</p>
+
+<p>Rules:</p>
+<ul>
+    <li>Note that you cannot make double reservation for same day.</li>
+    <li>You can make reservations up to a week later.</li>
+    <li>You should not enter the courts without asking the consultant and wearing clothes other than tennis clothing.</li>
+    <li>The name and surname of the players who will play in the reservation must be specified.</li>
+    <li>Reservation cancellations must be made at least 2 hours in advance, unless the cancellation is made, court fee (including members) is charged.</li>
+    <li>Waiting time on the courts is 10 minutes. At the end of this period, he/she can play waiting for the court.</li>
+    <li>Training activities on the courts are carried out under the supervision of branch teachers.</li>
+  </ul>  
+
+	<p>Court Fees:</p>
+ <table>
+  <tr>
+    <th>CATEGORY</th>
+    <th>SESSION</th>
+    <th>MONTHLY MEMBERSHIP</th>
+  </tr>
+  <tr>
+    <td> ITU student</td>
+    <td>8 TL</td>
+    <th>60 TL</th>
+  </tr>
+  <tr>
+    <td>Staff</td>
+    <td>10 TL</td>
+    <th>100 TL</th>
+  </tr>
+  <tr>
+    <td>Grad student</td>
+    <td>40 TL</td>
+    <th>600 TL</th>
+  </tr>
+  <tr>
+    <td>External user</td>
+    <td>30 TL</td>
+    <th>600 TL</th>
+  </tr>
+  <tr>
+    <td>Guest</td>
+    <td>40 TL</td>
+    <th>1000 TL</th>
+  </tr>
+  <tr>
+    <td>Retired from ITU</td>
+    <td>10 TL</td>
+    <th>100 TL</th>
+  </tr>
+</table>
+{%endblock%}
+</body>   
+</html>

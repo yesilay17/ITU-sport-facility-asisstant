@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+
+{% block title %}	<h1>Swimming Pool {% if username %}<br><a href="/register_pool"><button >REGISTER</button></a><br>
+{% else %}<p style="color:red"> You have to login before the resgistration!</p> 
+{% endif %}</h1> {% endblock %}
+	{% block content %}
+  {% if message %} <h3 style="color:red">{{ message }}</h3>{% endif %} 
+	<img class="img1" src="./static/pool.jpg">
+	<p>Our pool has been opened to the service of ITU students, members and guests since June 18, 2007.</p>
+
+<p>Rules:</p>
+<ul>
+    <li>People who will use the pool must definitely know how to swim.</li>
+    <li>If there is any health problem, a doctor should be consulted beforehand. If there is a health problem that may cause problems in the pool, the pool should never be used.</li>
+    <li>The pool should not be entered without a bonnet.</li>
+    <li>Only swimming equipment should be brought around the pool, and no slippers, daily clothes, shoes, bags, bags and similar items should enter the pool area.</li>
+    <li>Sea cannon, seabed, life buoy, armband etc. material should not be used in the pool.</li>
+    <li>The warnings of the lifeguards must be followed in terms of life safety.</li>
+    <li>You should not swim from the bottom of the pool while holding your breath, except for activities with special permission from the pool management.</li>
+    <li>You should not jump into the water in a way that disturbs the people around, run around the pool and make noise.</li>
+  </ul>  
+
+	<p>Usage Fees:</p>
+	<img class="img1" src="./static/swimming_pool.jpg">	
+ <table>
+  <tr>
+    <th>CATEGORY</th>
+    <th>SESSION</th>
+    <th>MONTHLY MEMBERSHIP</th>
+  </tr>
+  <tr>
+    <td> ITU student</td>
+    <td>5 TL</td>
+    <th>50 TL</th>
+  </tr>
+  <tr>
+    <td>Staff</td>
+    <td>10 TL</td>
+    <th>120 TL</th>
+  </tr>
+  <tr>
+    <td>Grad student</td>
+    <td>20 TL</td>
+    <th>300 TL</th>
+  </tr>
+  <tr>
+    <td>External user</td>
+    <td>30 TL</td>
+    <th>450 TL</th>
+  </tr>
+  <tr>
+    <td>Guest</td>
+    <td>40 TL</td>
+    <th>600 TL</th>
+  </tr>
+  <tr>
+    <td>Guest student</td>
+    <td>20 TL</td>
+    <th>300 TL</th>
+  </tr>
+  <tr>
+    <td>Retired from ITU</td>
+    <td>10 TL</td>
+    <th>120 TL</th>
+  </tr>
+</table>
+{%endblock%}
+</body>   
+</html>

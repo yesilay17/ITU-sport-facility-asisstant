@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %}	<h1>Football Field Carpet Reservations</h1>{% endblock %}
+	{% block content %} 
+		{% if message %}<p style="color:red;">{{message}}</p>{% endif %}
+<form action="" method="post" name="carpet_res_manage">
+ <table class="table">
+  <tr class="">
+    <th>Date</th>
+    <th>Time slot</th>
+  </tr>
+{% for date in sorted_date %}
+  <tr>
+    <td><label><input type="checkbox" name="dates" value="{{date}}"/></label>{{date}}</td>
+    <td>{{carpet_res[date]}}:00 to {{carpet_res[date]+1}}:00</td>
+  </tr>
+{% endfor %}
+<tr>
+  <td><button class="button is-primary is-small" name="update">UPDATE a RESERVATION</button></td>
+  <td><button class="button is-primary is-small" name="delete">DELETE</button></td>
+</tr>
+</table>
+</form>
+{%endblock%}
+</body>   
+</html>
