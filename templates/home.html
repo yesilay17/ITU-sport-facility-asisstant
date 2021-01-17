@@ -3,10 +3,10 @@
 {% if user %}<p style="color:blue">Hello {{ user.name_surname }}, <br> You can reach and update your personal, registration and reservation informations with clicking your username.</p>{% endif %}
 {% endblock %}
 	{% block content %} 
-	{% if name %}<h3 style="color:green">Hello, {{ name }} <br> You have successfully registred!{% endif %}
+	{% if name %}<h3 style="color:green">Hello, {{ name }} <br> You have successfully registred! Note that you are not logged in yet. {% endif %}
 	
 	{% if userid %}  Your userid is: {{ userid }}
-	 </h3> <{% endif %}
+	 </h3> {% endif %}
 	<img src="./static/Istanbul_Technical_University_Logo.png" alt="ITU">
 	<p>The Sports Services Branch Directorate, which operates under the Department of Health, Culture and Sports of our university, organizes and manages all sports activities in order to protect the physical and mental health of students and make use of their leisure time, it carries out activities to ensure that its students and staff can benefit from the facilities within the bounds of possibility, maintenance, management and construction of sports areas.</p>
 

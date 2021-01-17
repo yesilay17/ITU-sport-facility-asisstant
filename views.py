@@ -573,8 +573,10 @@ def login_page():
 def forgot_password():
     db = current_app.config["db"]
     if request.method == "GET":
+        values={"userid": "", "username": "", "name_surname": "", "age": "", "status": ""}
         return render_template(
-            "forgot_password.html"
+            "forgot_password.html",
+            values=values
             )
     else:
         username = request.form.get("username", "").strip()
@@ -602,9 +604,11 @@ def forgot_password():
         if(bool_1 and bool_2 and bool_3 and bool_4 and bools[0]):
             return redirect(url_for("update_password", userid=int(userid)))
         else:
+            values={"userid": userid, "username": username, "name_surname": name_surname, "age": int(age), "status": status}
             return render_template(
             "forgot_password.html",
-            message="No matching for that user!"
+            message="No matching for that user!",
+            values=values
             )
 
 def update_password(userid):
