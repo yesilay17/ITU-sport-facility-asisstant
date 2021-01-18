@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 
-from flask import current_app, render_template, redirect, request, url_for
+from flask import current_app, render_template, redirect, request, url_for, session
 
 import numpy as np
 
@@ -24,82 +24,72 @@ def convert_date(date):
 
 def home_page():
     db = current_app.config["db"]
-    __userid=db.get_login()
     today = datetime.today()
     day_name = today.strftime("%A")
-    if(__userid!=-1):
-        user=db.get_user()
-        print("Login__userid", __userid)
+    if("userid" in session):
+        user=db.get_user(int(session["userid"]))
         return render_template("home.html", day=day_name, name=None, username=user.username, user=user)
     else:
         return render_template("home.html", day=day_name, name=None)
 
 def gym_page():
     db = current_app.config["db"]
-    __userid=db.get_login()
-    if(__userid!=-1):
-        user=db.get_user()
+    if("userid" in session):
+        user=db.get_user(int(session["userid"]))
         return render_template("gym.html", username=user.username)
     else:
         return render_template("gym.html")
 
 def carpet_page():
     db = current_app.config["db"]
-    __userid=db.get_login()
-    if(__userid!=-1):
-        user=db.get_user()
-        register=db.get_carpet_registration()
+    if("userid" in session):
+        user=db.get_user(int(session["userid"]))
+        register=db.get_carpet_registration(int(session["userid"]))
         return render_template("carpet.html", username=user.username, register=register)
     else:
         return render_template("carpet.html")
 
 def pool_page():
     db = current_app.config["db"]
-    __userid=db.get_login()
-    if(__userid!=-1):
-        user=db.get_user()
+    if("userid" in session):
+        user=db.get_user(int(session["userid"]))
         return render_template("pool.html", username=user.username)
     else:
         return render_template("pool.html")
     
 def tennis_page():
     db = current_app.config["db"]
-    __userid=db.get_login()
-    if(__userid!=-1):
-        user=db.get_user()
-        register=db.get_tennis_registration()
+    if("userid" in session):
+        user=db.get_user(int(session["userid"]))
+        register=db.get_tennis_registration(int(session["userid"]))
         return render_template("tennis.html", username=user.username, register=register)
     else:
         return render_template("tennis.html")
 
 def register_gym():
     db = current_app.config["db"]
-    message=db.register_to_gym()
-    __userid=db.get_login()
-    user=db.get_user()
+    message=db.register_to_gym(int(session["userid"]))
+    user=db.get_user(int(session["userid"]))
     return render_template("gym.html", username=user.username, message=message)
 
 def register_carpet():
     db = current_app.config["db"]
-    message=db.register_to_carpet()
-    __userid=db.get_login()
-    user=db.get_user()
-    register=db.get_carpet_registration()
+    message=db.register_to_carpet(int(session["userid"]))
+    user=db.get_user(int(session["userid"]))
+    register=db.get_carpet_registration(int(session["userid"]))
     return render_template("carpet.html", username=user.username, message=message, register=register)    
 
 def register_pool():
     db = current_app.config["db"]
-    message=db.register_to_pool()
-    __userid=db.get_login()
-    user=db.get_user()
+    message=db.register_to_pool(int(session["userid"]))
+    user=db.get_user(int(session["userid"]))
     return render_template("pool.html", username=user.username, message=message)
 
 def register_tennis():
     db = current_app.config["db"]
-    message=db.register_to_tennis()
-    __userid=db.get_login()
-    user=db.get_user()
-    register=db.get_tennis_registration()
+    message=db.register_to_tennis(int(session["userid"]))
+    user=db.get_user(int(session["userid"]))
+    register=db.get_tennis_registration(int(session["userid"]))
     return render_template("tennis.html", username=user.username, message=message, register=register)
 
 def get_min_date():
@@ -131,7 +121,7 @@ def get_max_date():
 
 def reservation_tennis():
     db = current_app.config["db"]
-    user=db.get_user()
+    user=db.get_user(int(session["userid"]))
     min_date=get_min_date()
     max_date=get_max_date()
     this_week_dates=get_this_week()
@@ -157,7 +147,7 @@ def reservation_tennis():
                 if i==1:
                     message="You cannot make double reservation for same day, only first reservation is accepted!"
                     break
-                message = db.check_tennis_res(date_, time)
+                message = db.check_tennis_res(date_, time, int(session["userid"]))
                 i+=1
         this_week_dates=get_this_week()
         number_of_reservations = db.this_week_tennis_reservation(this_week_dates)
@@ -231,7 +221,7 @@ def plot_carpet_res(number_of_reservations, day_name):
 
 def reservation_carpet():
     db = current_app.config["db"]
-    user=db.get_user()
+    user=db.get_user(int(session["userid"]))
     min_date=get_min_date()
     max_date=get_max_date()
     this_week_dates=get_this_week()
@@ -258,7 +248,7 @@ def reservation_carpet():
                 if i==1:
                     message="You cannot make double reservation for same day, only first reservation is accepted!"
                     break
-                message = db.check_carpet_res(date_, time)
+                message = db.check_carpet_res(date_, time, int(session["userid"]))
                 i+=1
         this_week_dates=get_this_week()
         number_of_reservations = db.this_week_carpet_reservation(this_week_dates)
@@ -277,8 +267,8 @@ def reservation_carpet():
 
 def carpet_res_manage():
     db = current_app.config["db"]
-    carpet_res=db.get_carpet_res_user()
-    user=db.get_user()
+    carpet_res=db.get_carpet_res_user(int(session["userid"]))
+    user=db.get_user(int(session["userid"]))
     sorted_date=sorted(carpet_res)
     if request.method == "GET":
         return render_template(
@@ -312,7 +302,7 @@ def carpet_res_manage():
             if not dates:
                 message="You have to select at least one reservation to delete."
         else:
-            user=db.get_user()
+            user=db.get_user(int(session["userid"]))
             min_date=get_min_date()
             max_date=get_max_date()
             date = request.form.get("date")
@@ -321,9 +311,9 @@ def carpet_res_manage():
             if(not date):
                 new_date = request.form.get("date_")
                 new_time_slot = request.form.getlist("time_slot")    
-                message=db.update_carpet_res(update_date, new_date, new_time_slot[0])
-                carpet_res=db.get_carpet_res_user()
-                user=db.get_user()
+                message=db.update_carpet_res(update_date, new_date, new_time_slot[0], int(session["userid"]))
+                carpet_res=db.get_carpet_res_user(int(session["userid"]))
+                user=db.get_user(int(session["userid"]))
                 sorted_date=sorted(carpet_res)
                 return render_template(
                         "carpet_res_manage.html",
@@ -348,8 +338,8 @@ def carpet_res_manage():
                 update_date = update_date,
                 image="static/carpet_res.jpeg?foo="+str(rand)
             )
-        carpet_res=db.get_carpet_res_user()
-        user=db.get_user()
+        carpet_res=db.get_carpet_res_user(int(session["userid"]))
+        user=db.get_user(int(session["userid"]))
         sorted_date=sorted(carpet_res)
         return render_template(
                 "carpet_res_manage.html",
@@ -361,7 +351,7 @@ def carpet_res_manage():
 
 def update_carpet_res(update_date):
     db = current_app.config["db"]
-    user=db.get_user()
+    user=db.get_user(int(session["userid"]))
     min_date=get_min_date()
     max_date=get_max_date()
     this_week_dates=get_this_week()
@@ -380,8 +370,8 @@ def update_carpet_res(update_date):
 def tennis_res_manage():
     db = current_app.config["db"]
     if request.method == "GET":
-        tennis_res=db.get_tennis_res_user()
-        user=db.get_user()
+        tennis_res=db.get_tennis_res_user(int(session["userid"]))
+        user=db.get_user(int(session["userid"]))
         sorted_date=sorted(tennis_res)
         return render_template(
                 "tennis_res_manage.html",
@@ -415,7 +405,7 @@ def tennis_res_manage():
                 message="You have to select at least one reservation to delete."
         else:
             db = current_app.config["db"]
-            user=db.get_user()
+            user=db.get_user(int(session["userid"]))
             min_date=get_min_date()
             max_date=get_max_date()
             date = request.form.get("date")
@@ -428,9 +418,9 @@ def tennis_res_manage():
             if(not date):
                 new_date = request.form.get("date_")
                 new_time_slot = request.form.getlist("time_slot")    
-                message=db.update_tennis_res(update_date, new_date, new_time_slot[0])
-                tennis_res=db.get_tennis_res_user()
-                user=db.get_user()
+                message=db.update_tennis_res(update_date, new_date, new_time_slot[0], int(session["userid"]))
+                tennis_res=db.get_tennis_res_user(int(session["userid"]))
+                user=db.get_user(int(session["userid"]))
                 sorted_date=sorted(tennis_res)
                 return render_template(
                         "tennis_res_manage.html",
@@ -455,8 +445,8 @@ def tennis_res_manage():
                 update_date = update_date,
                 image="static/tennis_res.jpeg?foo="+str(rand)
             )
-        tennis_res=db.get_tennis_res_user()
-        user=db.get_user()
+        tennis_res=db.get_tennis_res_user(int(session["userid"]))
+        user=db.get_user(int(session["userid"]))
         sorted_date=sorted(tennis_res)
         return render_template(
                 "tennis_res_manage.html",
@@ -468,7 +458,7 @@ def tennis_res_manage():
 
 def update_tennis_res(update_date):
     db = current_app.config["db"]
-    user=db.get_user()
+    user=db.get_user(int(session["userid"]))
     min_date=get_min_date()
     max_date=get_max_date()
     this_week_dates=get_this_week()
@@ -487,17 +477,16 @@ def update_tennis_res(update_date):
 
 def user_page():
     db = current_app.config["db"]
-    user=db.get_user()
-    userid=db.get_login()
-    gym=db.get_gym_registration()
-    carpet=db.get_carpet_registration()
-    pool=db.get_pool_registration()
-    tennis=db.get_tennis_registration()
-    carpet_res=db.get_carpet_res_user()
-    tennis_res=db.get_tennis_res_user()
+    user=db.get_user(int(session["userid"]))
+    gym=db.get_gym_registration(int(session["userid"]))
+    carpet=db.get_carpet_registration(int(session["userid"]))
+    pool=db.get_pool_registration(int(session["userid"]))
+    tennis=db.get_tennis_registration(int(session["userid"]))
+    carpet_res=db.get_carpet_res_user(int(session["userid"]))
+    tennis_res=db.get_tennis_res_user(int(session["userid"]))
     return render_template(
                 "user.html",
-                userid=userid,
+                userid=int(session["userid"]),
                 user=user,
                 username=user.username,
                 gym=gym,
@@ -511,12 +500,11 @@ def user_page():
 def update_user():
     db = current_app.config["db"]
     if request.method == "GET":
-        user=db.get_user()
-        userid=db.get_login()
+        user=db.get_user(int(session["userid"]))
         return render_template(
                 "user.html",
                 user=user,
-                userid=userid,
+                userid=int(session["userid"]),
                 update="active"
         )
     else:
@@ -527,13 +515,14 @@ def update_user():
         age = request.form.get("age")
         status = request.form.get("status", "").strip()
         user = User(username, password, name_surname, int(age), status)
-        if(db.update_user(user, userid)):
+        if(db.update_user(user, userid, int(session["userid"]))):
+            session["userid"]=userid
             return user_page()
         else:
             return render_template(
                 "user.html",
                 user=user,
-                userid=userid,
+                userid=int(session["userid"]),
                 update="active",
                 message="This userid is used by another account, please select another one."
                 )
@@ -541,12 +530,11 @@ def update_user():
 def login_page():
     db = current_app.config["db"]
     if request.method == "GET":
-        userid=db.get_login()
-        user=db.get_user()
-        if(userid!=-1):
+        if("userid" in session):
+            user=db.get_user(int(session["userid"]))
             return render_template(
                 "login.html",
-                userid=userid,
+                userid=int(session["userid"]),
                 username=user.username
             )
         else:
@@ -561,10 +549,9 @@ def login_page():
         today = datetime.today()
         day_name = today.strftime("%A")
         if(user!=None):
-            global __userid
-            __userid=userid
-            print("Login__userid", __userid)
-            user=db.get_user()
+            session["userid"]=userid
+            print("Login__userid", int(session["userid"]))
+            user=db.get_user(int(session["userid"]))
             return render_template("home.html", day=day_name, username=user.username, user=user)
         else:    
             db.sign_out()
@@ -651,7 +638,8 @@ def user_add_page():
         day_name = today.strftime("%A")
         values={"username": username, "password": password, "name_surname": name_surname, "age": age, "status": status}
         if(new_user):
-            db.sign_out()
+            if "userid" in session:
+                session.pop("userid", None)
             return render_template("home.html", day=day_name, name=name_surname, userid=userid)
         else:    
             return render_template("register.html", warning="This userid is used by another user, please try another one.", values=values)
@@ -662,7 +650,7 @@ def delete_user():
         return render_template("user.html", warning1=warning1)
     else:
         db = current_app.config["db"]
-        db.delete_user()
+        db.delete_user(int(session["userid"]))
         return sign_out()
 
 def delete_gym_reg():
@@ -671,7 +659,7 @@ def delete_gym_reg():
         return render_template("user.html", warning1=warning1)
     else:
         db = current_app.config["db"]
-        db.delete_gym_registration()
+        db.delete_gym_registration(int(session["userid"]))
         return user_page()
 
 def delete_carpet_reg():
@@ -680,7 +668,7 @@ def delete_carpet_reg():
         return render_template("user.html", warning1=warning1)
     else:
         db = current_app.config["db"]
-        db.delete_carpet_registration()
+        db.delete_carpet_registration(int(session["userid"]))
         return user_page()
 
 def delete_pool_reg():
@@ -689,7 +677,7 @@ def delete_pool_reg():
         return render_template("user.html", warning1=warning1)
     else:
         db = current_app.config["db"]
-        db.delete_pool_registration()
+        db.delete_pool_registration(int(session["userid"]))
         return user_page()
 
 def delete_tennis_reg():
@@ -698,12 +686,12 @@ def delete_tennis_reg():
         return render_template("user.html", warning1=warning1)
     else:
         db = current_app.config["db"]
-        db.delete_tennis_registration()
+        db.delete_tennis_registration(int(session["userid"]))
         return user_page()
 
 def sign_out():
-    db = current_app.config["db"]
-    db.sign_out()
+    if "userid" in session:
+        session.pop("userid", None)
     today = datetime.today()
     day_name = today.strftime("%A")
     return render_template("home.html", day=day_name, name=None)
