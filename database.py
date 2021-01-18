@@ -1,13 +1,10 @@
 import mysql.connector
 
-#mc=mysql.connector.connect(user="root", password ="159753", database="blg317e")
-mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="ba8c4dde4bcdee", password ="f9c8e2b5", database="heroku_3cf7ec0d7c94523")
+mc=mysql.connector.connect(user="root", password ="159753", database="blg317e")
+#mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="ba8c4dde4bcdee", password ="f9c8e2b5", database="heroku_3cf7ec0d7c94523")
 mycursor=mc.cursor()
 
 sql="""
-CREATE DATABASE IF NOT EXISTS heroku_3cf7ec0d7c94523;
-USE heroku_3cf7ec0d7c94523;
-
 CREATE TABLE IF NOT EXISTS user_(
     userid INT NOT NULL UNIQUE,
     username VARCHAR(50) NOT NULL,
@@ -98,7 +95,7 @@ class Database:
             return False
 
     def get_user(self):
-        mycursor.execute("SELECT * FROM heroku_3cf7ec0d7c94523.user_ Where userid=%d" %(int(self.__userid)))
+        mycursor.execute("SELECT * FROM blg317e.user_ Where userid=%d" %(int(self.__userid)))
         data=mycursor.fetchall()
         userid=0
         username=""
@@ -121,27 +118,27 @@ class Database:
 
     def forgot_password(self, userid, username, name_surname, age, status):
         bools=[False, False, False, False, False]
-        mycursor.execute("SELECT * FROM heroku_3cf7ec0d7c94523.user_ Where userid=%d and username='%s' and  name_surname='%s' and  age=%d and  status_='%s'" %(int(userid), username ,name_surname, int(age), status))
+        mycursor.execute("SELECT * FROM blg317e.user_ Where userid=%d and username='%s' and  name_surname='%s' and  age=%d and  status_='%s'" %(int(userid), username ,name_surname, int(age), status))
         data=mycursor.fetchall()
         if(data):
             bools[0]=True
         data=None
-        mycursor.execute("SELECT * FROM heroku_3cf7ec0d7c94523.gym Where userid=%d" %(int(userid)))
+        mycursor.execute("SELECT * FROM blg317e.gym Where userid=%d" %(int(userid)))
         data=mycursor.fetchall()
         if(data):
             bools[1]=True
         data=None
-        mycursor.execute("SELECT * FROM heroku_3cf7ec0d7c94523.carpet Where userid=%d" %(int(userid)))
+        mycursor.execute("SELECT * FROM blg317e.carpet Where userid=%d" %(int(userid)))
         data=mycursor.fetchall()
         if(data):
             bools[2]=True
         data=None
-        mycursor.execute("SELECT * FROM heroku_3cf7ec0d7c94523.pool Where userid=%d" %(int(userid)))
+        mycursor.execute("SELECT * FROM blg317e.pool Where userid=%d" %(int(userid)))
         data=mycursor.fetchall()
         if(data):
             bools[3]=True
         data=None
-        mycursor.execute("SELECT * FROM heroku_3cf7ec0d7c94523.tennis Where userid=%d" %(int(userid)))
+        mycursor.execute("SELECT * FROM blg317e.tennis Where userid=%d" %(int(userid)))
         data=mycursor.fetchall()
         if(data):
             bools[4]=True
@@ -153,7 +150,7 @@ class Database:
 
 
     def get_gym_registration(self):
-        mycursor.execute("SELECT * FROM heroku_3cf7ec0d7c94523.gym Where userid=%d" %(int(self.__userid)))
+        mycursor.execute("SELECT * FROM blg317e.gym Where userid=%d" %(int(self.__userid)))
         data=mycursor.fetchall()
         userid=-1
         for row in data:
@@ -165,7 +162,7 @@ class Database:
             return False
 
     def get_carpet_registration(self):
-        mycursor.execute("SELECT * FROM heroku_3cf7ec0d7c94523.carpet Where userid=%d" %(int(self.__userid)))
+        mycursor.execute("SELECT * FROM blg317e.carpet Where userid=%d" %(int(self.__userid)))
         data=mycursor.fetchall()
         userid=-1
         for row in data:
@@ -177,7 +174,7 @@ class Database:
             return False
 
     def get_pool_registration(self):
-        mycursor.execute("SELECT * FROM heroku_3cf7ec0d7c94523.pool Where userid=%d" %(int(self.__userid)))
+        mycursor.execute("SELECT * FROM blg317e.pool Where userid=%d" %(int(self.__userid)))
         data=mycursor.fetchall()
         userid=-1
         for row in data:
@@ -189,7 +186,7 @@ class Database:
             return False
 
     def get_tennis_registration(self):
-        mycursor.execute("SELECT * FROM heroku_3cf7ec0d7c94523.tennis Where userid=%d" %(int(self.__userid)))
+        mycursor.execute("SELECT * FROM blg317e.tennis Where userid=%d" %(int(self.__userid)))
         data=mycursor.fetchall()
         userid=-1
         for row in data:
@@ -202,7 +199,7 @@ class Database:
 
     def check_tennis_res(self, date, time_slot):
         tennis_id=self.get_tennis_registration()
-        mycursor.execute("SELECT * FROM heroku_3cf7ec0d7c94523.tennis_res Where tennisid=%d and day_='%s'" %(int(tennis_id), str(date)))
+        mycursor.execute("SELECT * FROM blg317e.tennis_res Where tennisid=%d and day_='%s'" %(int(tennis_id), str(date)))
         data=mycursor.fetchall()
         if(data):
             return "You cannot make double reservation for same day."
@@ -212,7 +209,7 @@ class Database:
             return "You have reserved successfully."    
         
     def get_tennis_res_time(self, date):
-        mycursor.execute("SELECT * FROM heroku_3cf7ec0d7c94523.tennis_res Where day_='%s'" %(str(date)))
+        mycursor.execute("SELECT * FROM blg317e.tennis_res Where day_='%s'" %(str(date)))
         data=mycursor.fetchall()
         time_slot=[False, False, False, False]
         for row in data:
@@ -228,7 +225,7 @@ class Database:
 
     def get_tennis_res_user(self):
         tennis_id=self.get_tennis_registration()
-        mycursor.execute("SELECT * FROM heroku_3cf7ec0d7c94523.tennis_res Where tennisid=%d" %(int(tennis_id)))
+        mycursor.execute("SELECT * FROM blg317e.tennis_res Where tennisid=%d" %(int(tennis_id)))
         data=mycursor.fetchall()
         reservation={}
         for row in data:
@@ -249,7 +246,7 @@ class Database:
 
     def check_carpet_res(self, date, time_slot):
         carpet_id=self.get_carpet_registration()
-        mycursor.execute("SELECT * FROM heroku_3cf7ec0d7c94523.carpet_res Where carpetid=%d and day_='%s'" %(int(carpet_id), str(date)))
+        mycursor.execute("SELECT * FROM blg317e.carpet_res Where carpetid=%d and day_='%s'" %(int(carpet_id), str(date)))
         data=mycursor.fetchall()
         if(data):
             return "You cannot make double reservation for same day."
@@ -259,7 +256,7 @@ class Database:
             return "You have reserved successfully."    
         
     def get_carpet_res_time(self, date):
-        mycursor.execute("SELECT * FROM heroku_3cf7ec0d7c94523.carpet_res Where day_='%s'" %(str(date)))
+        mycursor.execute("SELECT * FROM blg317e.carpet_res Where day_='%s'" %(str(date)))
         data=mycursor.fetchall()
         time_slot=[False, False, False, False]
         for row in data:
@@ -275,7 +272,7 @@ class Database:
 
     def get_carpet_res_user(self):
         carpet_id=self.get_carpet_registration()
-        mycursor.execute("SELECT * FROM heroku_3cf7ec0d7c94523.carpet_res Where carpetid=%d" %(int(carpet_id)))
+        mycursor.execute("SELECT * FROM blg317e.carpet_res Where carpetid=%d" %(int(carpet_id)))
         data=mycursor.fetchall()
         reservation={}
         for row in data:
@@ -295,7 +292,7 @@ class Database:
         return
 
     def find_user(self, userid, username, password):
-        mycursor.execute("SELECT * FROM heroku_3cf7ec0d7c94523.user_ Where userid=%d and username='%s' and  password_='%s'" %(int(userid),username ,password))
+        mycursor.execute("SELECT * FROM blg317e.user_ Where userid=%d and username='%s' and  password_='%s'" %(int(userid),username ,password))
         data=mycursor.fetchall()
         userid=0
         username=""
@@ -398,7 +395,7 @@ class Database:
         number_of_reservations=[0,0,0,0,0,0,0]
         i=0
         while i<7:
-            mycursor.execute("SELECT * FROM heroku_3cf7ec0d7c94523.tennis_res Where day_='%s'" %(str(dates[i])))
+            mycursor.execute("SELECT * FROM blg317e.tennis_res Where day_='%s'" %(str(dates[i])))
             data=mycursor.fetchall()
             for row in data:
                 number_of_reservations[i]+=1
@@ -409,7 +406,7 @@ class Database:
         number_of_reservations=[0,0,0,0,0,0,0]
         i=0
         while i<7:
-            mycursor.execute("SELECT * FROM heroku_3cf7ec0d7c94523.carpet_res Where day_='%s'" %(str(dates[i])))
+            mycursor.execute("SELECT * FROM blg317e.carpet_res Where day_='%s'" %(str(dates[i])))
             data=mycursor.fetchall()
             for row in data:
                 number_of_reservations[i]+=1
