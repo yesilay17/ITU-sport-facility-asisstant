@@ -298,7 +298,7 @@ def carpet_res_manage():
                 return update_carpet_res(dates[0])
         elif delete!=None:
             for time in dates:
-                db.delete_carpet_res(time)
+                db.delete_carpet_res(time, int(session["userid"]))
             if not dates:
                 message="You have to select at least one reservation to delete."
         else:
@@ -400,7 +400,7 @@ def tennis_res_manage():
                 return update_tennis_res(dates[0])
         elif delete!=None:
             for time in dates:
-                db.delete_tennis_res(time)
+                db.delete_tennis_res(time, int(session["userid"]))
             if not dates:
                 message="You have to select at least one reservation to delete."
         else:
@@ -530,16 +530,19 @@ def update_user():
 def login_page():
     db = current_app.config["db"]
     if request.method == "GET":
+        values={"userid": "", "username": "", "password": ""}
         if("userid" in session):
             user=db.get_user(int(session["userid"]))
             return render_template(
                 "login.html",
                 userid=int(session["userid"]),
-                username=user.username
+                username=user.username,
+                values=values
             )
         else:
             return render_template(
-                "login.html"
+                "login.html",
+                values=values
             )        
     else:
         username = request.form.get("username", "").strip()
@@ -548,14 +551,14 @@ def login_page():
         user=db.find_user(userid,username,password)
         today = datetime.today()
         day_name = today.strftime("%A")
+        values={"userid": userid, "username": username, "password": password}
         if(user!=None):
             session["userid"]=userid
             print("Login__userid", int(session["userid"]))
             user=db.get_user(int(session["userid"]))
-            return render_template("home.html", day=day_name, username=user.username, user=user)
+            return render_template("home.html", day=day_name, username=user.username, user=user, values=values)
         else:    
-            db.sign_out()
-            return render_template("login.html", wrong_data="Incorrect userid or username or password.")
+            return render_template("login.html", wrong_data="Incorrect userid or username or password.", values=values)
 
 def forgot_password():
     db = current_app.config["db"]

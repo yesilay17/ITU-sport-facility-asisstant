@@ -3,7 +3,7 @@
 {% block title %} {% endblock %}
   {% block content %} 
  {% if userid %}<p>You have aldready logined.</p>   
- {% else %}{% if wrong_data %} <p>{{ wrong_data }}</p> {% else %}
+ {% else %}{% if wrong_data %} <p>{{ wrong_data }}</p>{% endif %}
  <br>
   <form action="" method="post" name="user_add">
     <div class="field">
@@ -13,7 +13,7 @@
         <td><label for="userid" class="label">Userid:</label></td>
         <td>
           <div class="control"> 
-            <input type="number" name="userid" class="input" required="required" min="0"/>
+            <input type="number" name="userid" class="input" required="required" min="0" value="{{ values['userid'] }}"/>
           </div> 
         </td>  
       </tr>
@@ -21,7 +21,7 @@
         <td><label for="username" class="label">Username:</label> </td>
         <td>
           <div class="control"> 
-            <input type="text" name="username" class="input" required="required" />
+            <input type="text" name="username" class="input" required="required" value="{{ values['username'] }}"/>
           </div>  
         </td>
       </tr>
@@ -29,7 +29,7 @@
         <td><label for="password" class="label">Password:</label></td>
         <td>
           <div class="control"> 
-            <input type="password" name="password" class="input" required="required"/>
+            <input type="password" name="password" class="input" required="required" value="{{ values['password'] }}"/>
           </div> 
         </td>  
       </tr>
@@ -46,7 +46,6 @@
     </table>
    </div>
   </form>
-  {% endif %}
   {% endif %}
 {%endblock%}
 </body>   

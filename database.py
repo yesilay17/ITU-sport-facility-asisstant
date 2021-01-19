@@ -1,11 +1,11 @@
 import mysql.connector
 
+from objects import User
 
-sql="""
-CREATE DATABASE IF NOT EXISTS heroku_263577567345e1f;
+sql="""CREATE DATABASE IF NOT EXISTS heroku_263577567345e1f;
 USE heroku_263577567345e1f;
 CREATE TABLE IF NOT EXISTS user_(
-    userid INT NOT NULL,
+    userid INT NOT NULL UNIQUE,
     username VARCHAR(50) NOT NULL,
     password_ VARCHAR(50) NOT NULL,
     name_surname VARCHAR(50) NOT NULL,
@@ -38,7 +38,10 @@ CREATE TABLE IF NOT EXISTS carpet(
     carpetid INT AUTO_INCREMENT NOT NULL,
     userid INT NOT NULL,
     PRIMARY KEY (carpetid),
-    FOREIGN KEY (userid) REFERENCES user_(userid)
+    FOREIGN KEY (userid) 
+        REFERENCES user_(userid)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS pool(
@@ -75,13 +78,11 @@ CREATE TABLE IF NOT EXISTS tennis_res(
         ON UPDATE CASCADE
 );"""
 
-from objects import User
-    
 class Database:
     def __init__(self):
         mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
         mycursor=mc.cursor()
-        mycursor.execute(sql,  multi=True)
+        mycursor.execute(sql, multi=True)
         mc.commit()
         mycursor.close()
         mc.close()

@@ -58,7 +58,16 @@
         <td><label for="status" class="label">Status:</label> </td>
         <td>
           <div class="control"> 
-            <input type="text" name="status" class="input" required="required" value="{{ user.status }}"/>
+            <select  name="status" required="required" value=""/>
+              <option {% if user.status=="ITU student" %}selected="selected" {% endif %} value="ITU student">ITU student
+              </option>
+              <option {% if user.status=="Staff" %}selected="selected" {% endif %} value="Staff">Staff
+              </option>
+              <option {% if user.status=="Grad student" %}selected="selected" {% endif %} value="Grad student">Grad student
+              </option>
+              <option {% if user.status=="Guest" %}selected="selected" {% endif %} value="Guest">Guest
+              </option>
+            </select>
           </div>  
         </td>
       </tr>
