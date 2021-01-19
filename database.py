@@ -575,3 +575,23 @@ class Database:
                 number_of_reservations[i]+=1
             i+=1
         return number_of_reservations
+
+    def get_all_tennis_res_numbers(self):
+        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
+        mycursor=mc.cursor()
+        mycursor.execute("SELECT day_, COUNT(day_) FROM heroku_263577567345e1f.tennis_res group by day_;")
+        data=mycursor.fetchall()
+        mycursor.close()
+        mc.close()
+        print("data", data)
+        return data
+
+    def get_all_carpet_res_numbers(self):
+        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
+        mycursor=mc.cursor()
+        mycursor.execute("SELECT day_, COUNT(day_) FROM heroku_263577567345e1f.carpet_res group by day_;")
+        data=mycursor.fetchall()
+        mycursor.close()
+        mc.close()
+        print("data", data)
+        return data

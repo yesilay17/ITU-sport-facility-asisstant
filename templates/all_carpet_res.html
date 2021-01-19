@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block title %} <h1 style="text-align: center;">Football field carpet reservation numbers day by day</h1>{% endblock %}
+{% block content %} 
+<table class="table" style="margin-left: auto; margin-right: auto;">
+  <tr>
+    <th>Date</th>
+    <th>Number of reservations</th>
+  </tr>
+  {% for row in data %}
+  <tr>
+    <td>{{row[0]}}</td>
+    <td>{{row[1]}}</td>
+  </tr>
+  {% endfor %}
+</table>
+{%endblock%}
+</body>   
+</html>

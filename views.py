@@ -12,15 +12,7 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
 
 from objects import User
-"""
-def convert_date(date):
-    s = ''.join(x for x in date if x.isdigit())
-    full_date =int(s)
-    year=int(full_date/10000)
-    month=int((full_date/100)%100)
-    day=int(full_date%100)
-    _date_=[year,month,day]
-    return _date_  """
+
 
 def home_page():
     db = current_app.config["db"]
@@ -32,6 +24,28 @@ def home_page():
         return render_template("home.html", day=day_name, name=None, username=user.username, user=user, status=number_of_status)
     else:
         return render_template("home.html", day=day_name, name=None, status=number_of_status)
+
+def all_tennis_res_numbers():
+    db = current_app.config["db"]
+    data=db.get_all_tennis_res_numbers()
+    username=None
+    if("userid" in session):
+        user=db.get_user(int(session["userid"]))
+        username=user.username
+    return render_template(
+        "all_tennis_res.html", data=data, username=username
+        )
+
+def all_carpet_res_numbers():
+    db = current_app.config["db"]
+    data=db.get_all_carpet_res_numbers()
+    username=None
+    if("userid" in session):
+        user=db.get_user(int(session["userid"]))
+        username=user.username
+    return render_template(
+        "all_carpet_res.html", data=data, username=username
+        )
 
 def gym_page():
     db = current_app.config["db"]
