@@ -8,6 +8,30 @@
 	{% if userid %}  Your userid is: {{ userid }}
 	 </h3> {% endif %}
 	<img src="./static/Istanbul_Technical_University_Logo.png" alt="ITU">
+	{% if status %} 
+		<table class="table" align="right">
+		  <tr class="">
+		    <th>Status</th>
+		    <th>Number of status</th>
+		  </tr>
+		  <tr>
+		    <td> ITU student</td>
+		    <td>{{status[0]}}</td>
+		  </tr>
+		  <tr>
+		    <td>Staff</td>
+		    <td>{{status[1]}}</td>
+		  </tr>
+		  <tr>
+		    <td>Grad student</td>
+		    <td>{{status[2]}}</td>
+		  </tr>
+		  <tr>
+		    <td>Guest</td>
+		    <td>{{status[3]}}</td>
+		  </tr>
+		</table>
+	{% endif %}
 	<p>The Sports Services Branch Directorate, which operates under the Department of Health, Culture and Sports of our university, organizes and manages all sports activities in order to protect the physical and mental health of students and make use of their leisure time, it carries out activities to ensure that its students and staff can benefit from the facilities within the bounds of possibility, maintenance, management and construction of sports areas.</p>
 
     <p>Have a nice {{ day }}!</p>

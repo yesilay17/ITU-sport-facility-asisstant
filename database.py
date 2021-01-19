@@ -125,6 +125,32 @@ class Database:
         else:
             return None
 
+    def get_status_numbers(self):
+        data=[0,0,0,0]
+        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
+        mycursor=mc.cursor()
+        mycursor.execute("SELECT COUNT(userid) FROM heroku_263577567345e1f.user_ where status_='ITU student';")
+        num=mycursor.fetchall()
+        if (num):
+            data[0]=int(num[0][0])
+        mycursor.execute("SELECT COUNT(userid) FROM heroku_263577567345e1f.user_ where status_='Staff';")
+        num=mycursor.fetchall()
+        if (num):
+            data[1]=int(num[0][0])
+        mycursor.execute("SELECT COUNT(userid) FROM heroku_263577567345e1f.user_ where status_='Grad student';")
+        num=mycursor.fetchall()
+        if (num):
+            data[2]=int(num[0][0])
+        mycursor.execute("SELECT COUNT(userid) FROM heroku_263577567345e1f.user_ where status_='Guest';")
+        num=mycursor.fetchall()
+        if (num):
+            data[3]=int(num[0][0])
+        mycursor.close()
+        mc.close()
+        return data
+
+
+
     def forgot_password(self, userid, username, name_surname, age, status):
         bools=[False, False, False, False, False]
         mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
@@ -247,16 +273,16 @@ class Database:
             return False        
 
     def check_tennis_res(self, date, time_slot, userid):
-        tennis_id=self.get_tennis_registration(userid)
         mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
         mycursor=mc.cursor()
-        mycursor.execute("SELECT * FROM heroku_263577567345e1f.tennis_res Where tennisid=%d and day_='%s'" %(int(tennis_id), str(date)))
+        mycursor.execute("SELECT * FROM heroku_263577567345e1f.tennis INNER JOIN heroku_263577567345e1f.tennis_res Where tennis_res.tennisid=tennis.tennisid and day_='%s' and userid=%d " %(str(date), int(userid)))
         data=mycursor.fetchall()
         mycursor.close()
         mc.close()
         if(data):
             return "You cannot make double reservation for same day."
         else:
+            tennis_id=self.get_tennis_registration(userid)
             mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
             mycursor=mc.cursor()
             mycursor.execute("INSERT INTO tennis_res(tennisid, day_, time_slot) VALUES(%d, '%s', '%s');" %(int(tennis_id), str(date), str(time_slot)))
@@ -317,17 +343,17 @@ class Database:
         mc.close()
         return
 
-    def check_carpet_res(self, date, time_slot, userid):
-        carpet_id=self.get_carpet_registration(userid)
+    def check_carpet_res(self, date, time_slot, userid):  
         mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
         mycursor=mc.cursor()
-        mycursor.execute("SELECT * FROM heroku_263577567345e1f.carpet_res Where carpetid=%d and day_='%s'" %(int(carpet_id), str(date)))
+        mycursor.execute("SELECT * FROM heroku_263577567345e1f.carpet INNER JOIN heroku_263577567345e1f.carpet_res Where carpet_res.carpetid=carpet.carpetid and day_='%s' and userid=%d " %(str(date), int(userid)))
         data=mycursor.fetchall()
         mycursor.close()
         mc.close()
         if(data):
             return "You cannot make double reservation for same day."
         else:
+            carpet_id=self.get_carpet_registration(userid)
             mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
             mycursor=mc.cursor()
             mycursor.execute("INSERT INTO carpet_res(carpetid, day_, time_slot) VALUES(%d, '%s', '%s');" %(int(carpet_id), str(date), str(time_slot)))

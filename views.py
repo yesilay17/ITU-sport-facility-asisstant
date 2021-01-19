@@ -26,11 +26,12 @@ def home_page():
     db = current_app.config["db"]
     today = datetime.today()
     day_name = today.strftime("%A")
+    number_of_status=db.get_status_numbers()
     if("userid" in session):
         user=db.get_user(int(session["userid"]))
-        return render_template("home.html", day=day_name, name=None, username=user.username, user=user)
+        return render_template("home.html", day=day_name, name=None, username=user.username, user=user, status=number_of_status)
     else:
-        return render_template("home.html", day=day_name, name=None)
+        return render_template("home.html", day=day_name, name=None, status=number_of_status)
 
 def gym_page():
     db = current_app.config["db"]
