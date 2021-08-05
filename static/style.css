@@ -3,16 +3,17 @@
 	background-color: #dddddd;
 			}
 #divh{
-	background-color:black;
+	background-color:black ; 
 	text-align:center;
-	padding: 12px 12px;
-	border: white solid 3px;		
+	padding: 8px 8px;
+	<!-- border: white solid 1px;-->		
 }
 .reserved{
 	background-color: #333333; 
 	color:white
 }
 .link1{
+	background-color:black;
 	font-size:22px;
 	text-decoration: none; 
 	color:white;
