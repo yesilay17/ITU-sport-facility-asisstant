@@ -365,7 +365,9 @@ def carpet_res_manage():
                 message=message,
                 reserved=res_list,
                 update_date = update_date,
-                image="static/carpet_res.png?foo="+str(rand)
+                #image="static/carpet_res.png?foo="+str(rand)
+                day_name=day_names,
+                nor=number_of_reservations
             )
         carpet_res=db.get_carpet_res_user(int(session["userid"]))
         user=db.get_user(int(session["userid"]))
@@ -393,7 +395,9 @@ def update_carpet_res(update_date):
         min_date=min_date,
         max_date=max_date,
         update_date=update_date,
-        image="static/carpet_res.png?foo="+str(rand)
+        #image="static/carpet_res.png?foo="+str(rand)
+        day_name=day_names,
+        nor=number_of_reservations
     )
 
 def tennis_res_manage():
@@ -472,7 +476,9 @@ def tennis_res_manage():
                 message=message,
                 reserved=res_list,
                 update_date = update_date,
-                image="static/tennis_res.png?foo="+str(rand)
+                #image="static/carpet_res.png?foo="+str(rand)
+                day_name=day_names,
+                nor=number_of_reservations
             )
         tennis_res=db.get_tennis_res_user(int(session["userid"]))
         user=db.get_user(int(session["userid"]))
@@ -500,7 +506,9 @@ def update_tennis_res(update_date):
         min_date=min_date,
         max_date=max_date,
         update_date=update_date,
-        image="static/tennis_res.png?foo="+str(rand)
+        #image="static/carpet_res.png?foo="+str(rand)
+        day_name=day_names,
+        nor=number_of_reservations
     )
     
 
