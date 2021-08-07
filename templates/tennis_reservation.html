@@ -64,7 +64,84 @@
     <th><button class="button is-primary is-small">Confirm date</button></th>
      </table>
      <br>
-      <img style="width: 520px; display: block; margin-left: auto; margin-right: auto;" src="{{image}}">
+
+
+
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+<br>
+<div style="padding-left:400px;padding-right:400px">
+    <canvas id="myChart2" class="chart-container" 
+      style="
+        margin: auto; 
+        height: 40vh;">
+    </canvas>
+</div>
+
+<script>
+    let myChart = document.getElementById('myChart2').getContext('2d');
+    Chart.defaults.global.defaultFontFamily = 'Lato';
+    Chart.defaults.global.defaultFontSize = 18;
+    Chart.defaults.global.defaultFontColor = '#777';
+
+
+    let massPopChart = new Chart(myChart, {
+      type:'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+      data:{
+        labels:["{{ day_name[0] }}","{{ day_name[1] }}","{{ day_name[2] }}","{{ day_name[3] }}","{{ day_name[4] }}",
+        "{{ day_name[5] }}","{{ day_name[6] }}"],
+        datasets:[{
+          label:'Number of Reservations',
+          data:[
+            "{{ nor[0] }}",
+            "{{ nor[1] }}",
+            "{{ nor[2] }}",
+            "{{ nor[3] }}",
+            "{{ nor[4] }}",
+            "{{ nor[5] }}",
+            "{{ nor[6] }}",
+          ],
+          //backgroundColor:'green',
+          backgroundColor:[
+            'rgba(255, 99, 132, 0.6)',
+            'rgba(54, 162, 235, 0.6)',
+            'rgba(255, 206, 86, 0.6)',
+            'rgba(75, 192, 192, 0.6)',
+            'rgba(153, 102, 255, 0.6)',
+            'rgba(255, 159, 64, 0.6)',
+            'rgba(255, 99, 132, 0.6)'
+          ],
+          borderWidth:1,
+          borderColor:'#777',
+          hoverBorderWidth:2,
+          hoverBorderColor:'#000'
+        }]
+      },
+      options:{
+        maintainAspectRatio: false,
+        title:{
+          display:true,
+          text:'Number of Tennis Reservations',
+          fontSize:15
+        },
+        legend:{
+          display:false,
+          position:'right',
+          labels:{
+            fontColor:'#000'
+          }
+        },
+        tooltips:{
+          enabled:true
+        }
+      }
+    });
+</script>
+
+
+
+
+
+      <!--<img style="width: 520px; display: block; margin-left: auto; margin-right: auto;" src="{{image}}">-->
     {% if update_date %}
      <input type="hidden" name="update_date" value="{{update_date}}"/>{% endif %}
     </form> 

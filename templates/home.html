@@ -1,10 +1,9 @@
-﻿{% extends "layout.html" %}
+{% extends "layout.html" %}
 {% block title %}<h1>ITU SPORT FACILITY ASSISTANT</h1>
 {% if user %}<p style="color:blue">Hello {{ user.name_surname }}, <br> You can reach and update your personal, registration and reservation informations with clicking your username.</p>{% endif %}
 {% endblock %}
 	{% block content %} 
 	{% if name %}<h3 style="color:green">Hello, {{ name }} <br> You have successfully registred! Note that you are not logged in yet. {% endif %}
-	
 	{% if userid %}  Your userid is: {{ userid }}
 	 </h3> {% endif %}
 	<img src="./static/Istanbul_Technical_University_Logo.png" alt="ITU">

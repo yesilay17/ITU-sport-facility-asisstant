@@ -2,63 +2,27 @@
 <html lang="en">
 <head>
     <title>ITU SPORT FACILITY ASSISTANT</title>
-    <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="/static/style.css?v=1" />
-    <style>
-        table {
-            font-family: arial, sans-serif;
-            border-collapse: collapse;
-        }
-        td, th {
-            border: 1px solid #ffffff;
-            text-align: left;
-            padding: 12px 30px;
-                    }
-
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-                    }
-        li {
-            font-family: arial;
-            font-size: 20px;
-        }
-
-    </style>
 </head>
-<script type="text/javascript"></script>
 
 <body class="body1">
 
     <div id="divh">
         <img class="img2" src="./static/Istanbul_Technical_University_Logo.png">
         <img class="img3" src="./static/Istanbul_Technical_University_Logo.png">
-        <a onmouseover="style.backgroundColor='#dddddd'; style.color='black';" 
-           onmouseout="style.backgroundColor='black'; style.color='white';" 
-           class="link1" href="{{ url_for('home_page') }}">Home</a>
-        <a onmouseover="style.backgroundColor='#dddddd'; style.color='black';" 
-           onmouseout="style.backgroundColor='black'; style.color='white';" 
-           class="link1" href="/gym">GYM</a>
-        <a onmouseover="style.backgroundColor='#dddddd'; style.color='black';" 
-           onmouseout="style.backgroundColor='black'; style.color='white';" 
-        class="link1" href="/carpet">Football Field Carpet</a>
-        <a onmouseover="style.backgroundColor='#dddddd'; style.color='black';" 
-           onmouseout="style.backgroundColor='black'; style.color='white';" 
-           class="link1" href="/pool">Swimming Pool</a>
-        <a onmouseover="style.backgroundColor='#dddddd'; style.color='black';" 
-           onmouseout="style.backgroundColor='black'; style.color='white';" 
-           class="link1" href="/tennis">Tennis Court</a>
-        <a onmouseover="style.backgroundColor='#dddddd'; style.color='black';" 
-           onmouseout="style.backgroundColor='black'; style.color='white';" 
-           class="link1" href="/login">Login</a>
-        <a onmouseover="style.backgroundColor='#dddddd'; style.color='black';" 
-           onmouseout="style.backgroundColor='black'; style.color='white';" 
-           class="link1" href="/register">Register</a>
-         {% if username %} <a class="link1"> Logined as: <a onmouseover="style.backgroundColor='#dddddd'" 
-           onmouseout="style.backgroundColor='black'"
-           class="link1" style="color:blue" href="/user">{{ username }}</a> </a>{% endif %}
-         {% if username %} <a onmouseover="style.backgroundColor='#dddddd'; style.color='black';" 
-           onmouseout="style.backgroundColor='black'; style.color='white';" 
-           class="link1" href="/sign_out"> Logout</a>{% endif %}
+        <a class="link1" href="{{ url_for('home_page') }}">Home</a>
+        <a class="link1" href="/gym">GYM</a>
+        <a class="link1" href="/carpet">Football Field Carpet</a>
+        <a class="link1" href="/pool">Swimming Pool</a>
+        <a class="link1" href="/tennis">Tennis Court</a>
+        {% if not username %} 
+        <a class="link1" href="/login">Login</a>
+        <a class="link1" href="/register">Register</a>
+         {% endif %}
+         {% if username %} 
+         <a class="link1" style="border: none;"> Logined as: <a class="link1" style="color:blue" href="/user">{{ username }}</a> </a>
+        <a class="link1" href="/sign_out"> Logout</a>
+        {% endif %}
     </div>
   
 
@@ -67,7 +31,42 @@
 
 <br>
 <hr>
-<footer>&copy Hakan Yeşilay 2021</footer>
+<footer id="footer" > </footer>
+
+<script type="text/javascript">
+    let dt = new Date();
+    let footer_ = "&copy Hakan Yeşilay " + String(dt.getFullYear());
+    document.getElementById("footer").innerHTML = footer_;
+
+    const link = document.getElementsByClassName("link1");
+    var a;
+    for (a in link){
+        link[a].onmouseover = function() {
+            if(this.innerHTML==" Logined as: "){
+                return;
+            }
+            this.style.background = "#f2f2f2";
+            this.style.background =" -webkit-gradient(linear, left top, left bottom, from(#999999), to(#808080))";
+            this.style.background = "-moz-linear-gradient(top,  #999999,  #808080)";
+            this.style.filter =  "progid:DXImageTransform.Microsoft.gradient(startColorstr='#999999', endColorstr='#808080')";
+            if(this.style.color!='blue'){
+                this.style.color='black';
+            }
+        };
+        link[a].onmouseout = function() {
+            if(this.innerHTML==" Logined as: "){
+                return;
+            }
+            this.style.background="none";
+            this.style.filter="none";
+            this.style.backgroundColor="black";
+            if(this.style.color!='blue'){
+                this.style.color='white'; 
+            }
+        };
+    }
+    
+</script>
 
 </body>   
 </html>
