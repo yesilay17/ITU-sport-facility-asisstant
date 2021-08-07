@@ -57,12 +57,15 @@ def gym_page():
 
 def carpet_page():
     db = current_app.config["db"]
+    day_names=day_names_of_this_week()
+    this_week_dates=get_this_week()
+    number_of_reservations = db.this_week_carpet_reservation(this_week_dates)
     if("userid" in session):
         user=db.get_user(int(session["userid"]))
         register=db.get_carpet_registration(int(session["userid"]))
-        return render_template("carpet.html", username=user.username, register=register)
+        return render_template("carpet.html", username=user.username, register=register, day_name=day_names, nor=number_of_reservations)
     else:
-        return render_template("carpet.html")
+        return render_template("carpet.html", day_name=day_names, nor=number_of_reservations)
 
 def pool_page():
     db = current_app.config["db"]
@@ -74,12 +77,15 @@ def pool_page():
     
 def tennis_page():
     db = current_app.config["db"]
+    day_names=day_names_of_this_week()
+    this_week_dates=get_this_week()
+    number_of_reservations = db.this_week_tennis_reservation(this_week_dates)
     if("userid" in session):
         user=db.get_user(int(session["userid"]))
         register=db.get_tennis_registration(int(session["userid"]))
-        return render_template("tennis.html", username=user.username, register=register)
+        return render_template("tennis.html", username=user.username, register=register, day_name=day_names, nor=number_of_reservations)
     else:
-        return render_template("tennis.html")
+        return render_template("tennis.html", day_name=day_names, nor=number_of_reservations)
 
 def register_gym():
     db = current_app.config["db"]
@@ -142,14 +148,16 @@ def reservation_tennis():
     this_week_dates=get_this_week()
     number_of_reservations = db.this_week_tennis_reservation(this_week_dates)
     day_names=day_names_of_this_week()
-    rand=plot_tennis_res(number_of_reservations, day_names)
+    #rand=plot_tennis_res(number_of_reservations, day_names)
     if request.method =="GET":
         return render_template(
             "tennis_reservation.html", 
             username=user.username,
             min_date=min_date,
             max_date=max_date,
-            image="static/tennis_res.jpeg?foo="+str(rand)
+            #image="static/tennis_res.png?foo="+str(rand),
+            day_name=day_names,
+            nor=number_of_reservations
         )
     else:
         date = request.form.get("date")
@@ -167,7 +175,7 @@ def reservation_tennis():
         this_week_dates=get_this_week()
         number_of_reservations = db.this_week_tennis_reservation(this_week_dates)
         day_names=day_names_of_this_week()
-        rand=plot_tennis_res(number_of_reservations, day_names)
+        #rand=plot_tennis_res(number_of_reservations, day_names)
         res_list=db.get_tennis_res_time(date)
         return render_template(
             "tennis_reservation.html", 
@@ -177,7 +185,9 @@ def reservation_tennis():
             date=date,
             message=message,
             reserved=res_list,
-            image="static/tennis_res.jpeg?foo="+str(rand)
+            #image="static/tennis_res.png?foo="+str(rand)
+            day_name=day_names,
+            nor=number_of_reservations
         )
 
 def get_this_week():
@@ -219,7 +229,7 @@ def plot_tennis_res(number_of_reservations, day_name):
     plt.title("THIS WEEK TENNIS COURT RESERVATIONS")
     plt.bar(y_pos, number_of_reservations)
     plt.ylim([0,4])
-    plt.savefig("static/tennis_res.jpeg", dpi=150)
+    plt.savefig("static/tennis_res.png", dpi=150)
     return rand
 
 def plot_carpet_res(number_of_reservations, day_name):
@@ -231,7 +241,7 @@ def plot_carpet_res(number_of_reservations, day_name):
     plt.title("THIS WEEK FOOTBALL FIELD CARPET RESERVATIONS")
     plt.bar(y_pos, number_of_reservations)
     plt.ylim([0,4])
-    plt.savefig("static/carpet_res.jpeg", dpi=150)
+    plt.savefig("static/carpet_res.png", dpi=150)
     return rand
 
 def reservation_carpet():
@@ -242,14 +252,16 @@ def reservation_carpet():
     this_week_dates=get_this_week()
     number_of_reservations = db.this_week_carpet_reservation(this_week_dates)
     day_names=day_names_of_this_week()
-    rand=plot_carpet_res(number_of_reservations, day_names)
+    #rand=plot_carpet_res(number_of_reservations, day_names)
     if request.method =="GET":
         return render_template(
             "carpet_reservation.html", 
             username=user.username,
             min_date=min_date,
             max_date=max_date,
-            image="static/carpet_res.jpeg?foo="+str(rand)
+            #image="static/carpet_res.png?foo="+str(rand),
+            day_name=day_names,
+            nor=number_of_reservations
         )
     else:
         date = request.form.get("date")
@@ -268,7 +280,7 @@ def reservation_carpet():
         this_week_dates=get_this_week()
         number_of_reservations = db.this_week_carpet_reservation(this_week_dates)
         day_names=day_names_of_this_week()
-        rand=plot_carpet_res(number_of_reservations, day_names)
+        #rand=plot_carpet_res(number_of_reservations, day_names)
         return render_template(
             "carpet_reservation.html", 
             username=user.username,
@@ -277,7 +289,9 @@ def reservation_carpet():
             date=date,
             message=message,
             reserved=res_list,
-            image="static/carpet_res.jpeg?foo="+str(rand)
+            #image="static/carpet_res.png?foo="+str(rand),
+            day_name=day_names,
+            nor=number_of_reservations
         )
 
 def carpet_res_manage():
@@ -351,7 +365,7 @@ def carpet_res_manage():
                 message=message,
                 reserved=res_list,
                 update_date = update_date,
-                image="static/carpet_res.jpeg?foo="+str(rand)
+                image="static/carpet_res.png?foo="+str(rand)
             )
         carpet_res=db.get_carpet_res_user(int(session["userid"]))
         user=db.get_user(int(session["userid"]))
@@ -379,7 +393,7 @@ def update_carpet_res(update_date):
         min_date=min_date,
         max_date=max_date,
         update_date=update_date,
-        image="static/carpet_res.jpeg?foo="+str(rand)
+        image="static/carpet_res.png?foo="+str(rand)
     )
 
 def tennis_res_manage():
@@ -458,7 +472,7 @@ def tennis_res_manage():
                 message=message,
                 reserved=res_list,
                 update_date = update_date,
-                image="static/tennis_res.jpeg?foo="+str(rand)
+                image="static/tennis_res.png?foo="+str(rand)
             )
         tennis_res=db.get_tennis_res_user(int(session["userid"]))
         user=db.get_user(int(session["userid"]))
@@ -486,7 +500,7 @@ def update_tennis_res(update_date):
         min_date=min_date,
         max_date=max_date,
         update_date=update_date,
-        image="static/tennis_res.jpeg?foo="+str(rand)
+        image="static/tennis_res.png?foo="+str(rand)
     )
     
 
