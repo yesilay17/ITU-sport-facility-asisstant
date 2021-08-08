@@ -95,10 +95,13 @@ def register_gym():
 
 def register_carpet():
     db = current_app.config["db"]
+    day_names=day_names_of_this_week()
+    this_week_dates=get_this_week()
+    number_of_reservations = db.this_week_carpet_reservation(this_week_dates)
     message=db.register_to_carpet(int(session["userid"]))
     user=db.get_user(int(session["userid"]))
     register=db.get_carpet_registration(int(session["userid"]))
-    return render_template("carpet.html", username=user.username, message=message, register=register)    
+    return render_template("carpet.html", username=user.username, message=message, register=register, day_name=day_names, nor=number_of_reservations)    
 
 def register_pool():
     db = current_app.config["db"]
@@ -108,10 +111,13 @@ def register_pool():
 
 def register_tennis():
     db = current_app.config["db"]
+    day_names=day_names_of_this_week()
+    this_week_dates=get_this_week()
+    number_of_reservations = db.this_week_carpet_reservation(this_week_dates)
     message=db.register_to_tennis(int(session["userid"]))
     user=db.get_user(int(session["userid"]))
     register=db.get_tennis_registration(int(session["userid"]))
-    return render_template("tennis.html", username=user.username, message=message, register=register)
+    return render_template("tennis.html", username=user.username, message=message, register=register, day_name=day_names, nor=number_of_reservations)
 
 def get_min_date():
     today = datetime.now()
