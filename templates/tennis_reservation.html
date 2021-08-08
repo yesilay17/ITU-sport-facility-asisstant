@@ -69,16 +69,16 @@
 
      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
 <br>
-<div style="padding-left:400px;padding-right:400px">
-    <canvas id="myChart2" class="chart-container" 
-      style="
-        margin: auto; 
-        height: 40vh;">
+<div style="margin: auto;
+            width: 45%;
+            padding: 50px;
+      ">
+    <canvas id="myChart" class="chart-container"> 
     </canvas>
 </div>
 
 <script>
-    let myChart = document.getElementById('myChart2').getContext('2d');
+    let myChart = document.getElementById('myChart').getContext('2d');
     Chart.defaults.global.defaultFontFamily = 'Lato';
     Chart.defaults.global.defaultFontSize = 18;
     Chart.defaults.global.defaultFontColor = '#777';
@@ -117,10 +117,9 @@
         }]
       },
       options:{
-        maintainAspectRatio: false,
         title:{
           display:true,
-          text:'Number of Tennis Reservations',
+          text:'Number of Carpet Reservations',
           fontSize:15
         },
         legend:{
