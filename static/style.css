@@ -105,10 +105,10 @@ button:active {
 }
 .link1{
 	background-color:black;
-	font-size:22px;
+	font-size: 110%;
 	text-decoration: none; 
 	color:white;
-	padding:7px;
+	padding:8px;
 }
 .link2{
 	font-size:15px;
