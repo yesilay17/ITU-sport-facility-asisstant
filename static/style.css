@@ -99,7 +99,6 @@ button:active {
 	padding: 8px;
 	padding-bottom: 12px;
 	padding-top: 12px;
-	font-size: larger; 
 	<!-- border: white solid 1px;-->		
 }
 .reserved{
@@ -108,7 +107,7 @@ button:active {
 }
 .link1{
 	background-color:black;
-	
+	font-size: larger; 
 	text-decoration: none; 
 	color:white;
 	padding:7px;
