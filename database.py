@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS tennis_res(
 
 class Database:
     def __init__(self):
-        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
+        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="2e7eabd469ec1f9", database="heroku_263577567345e1f")
         mycursor=mc.cursor()
         mycursor.execute(sql, multi=True)
         mc.commit()
@@ -89,7 +89,7 @@ class Database:
 
     def add_user(self, user, userid):
         if(not self.get_user(userid)):
-            mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
+            mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="2e7eabd469ec1f9", database="heroku_263577567345e1f")
             mycursor=mc.cursor()   
             mycursor.execute("INSERT INTO user_(userid, username, password_, name_surname, age, status_) VALUES(%d,'%s','%s', '%s', %d, '%s');" %(int(userid),user.username,user.password,user.name_surname ,int(user.age),user.status))
             mc.commit()
@@ -100,7 +100,7 @@ class Database:
             return False
 
     def get_user(self, userid):
-        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
+        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="2e7eabd469ec1f9", database="heroku_263577567345e1f")
         mycursor=mc.cursor()
         mycursor.execute("SELECT * FROM heroku_263577567345e1f.user_ Where userid=%d" %(int(userid)))
         data=mycursor.fetchall()
@@ -127,7 +127,7 @@ class Database:
 
     def get_status_numbers(self):
         data=[0,0,0,0]
-        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
+        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="2e7eabd469ec1f9", database="heroku_263577567345e1f")
         mycursor=mc.cursor()
         mycursor.execute("SELECT COUNT(userid) FROM heroku_263577567345e1f.user_ where status_='ITU student';")
         num=mycursor.fetchall()
@@ -153,7 +153,7 @@ class Database:
 
     def forgot_password(self, userid, username, name_surname, age, status):
         bools=[False, False, False, False, False]
-        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
+        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="2e7eabd469ec1f9", database="heroku_263577567345e1f")
         mycursor=mc.cursor()
         mycursor.execute("SELECT * FROM heroku_263577567345e1f.user_ Where userid=%d and username='%s' and  name_surname='%s' and  age=%d and  status_='%s'" %(int(userid), username ,name_surname, int(age), status))
         data=mycursor.fetchall()
@@ -162,7 +162,7 @@ class Database:
         if(data):
             bools[0]=True
         data=None
-        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
+        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="2e7eabd469ec1f9", database="heroku_263577567345e1f")
         mycursor=mc.cursor()
         mycursor.execute("SELECT * FROM heroku_263577567345e1f.gym Where userid=%d" %(int(userid)))
         data=mycursor.fetchall()
@@ -171,7 +171,7 @@ class Database:
         if(data):
             bools[1]=True
         data=None
-        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
+        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="2e7eabd469ec1f9", database="heroku_263577567345e1f")
         mycursor=mc.cursor()
         mycursor.execute("SELECT * FROM heroku_263577567345e1f.carpet Where userid=%d" %(int(userid)))
         data=mycursor.fetchall()
@@ -180,7 +180,7 @@ class Database:
         if(data):
             bools[2]=True
         data=None
-        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
+        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="2e7eabd469ec1f9", database="heroku_263577567345e1f")
         mycursor=mc.cursor()
         mycursor.execute("SELECT * FROM heroku_263577567345e1f.pool Where userid=%d" %(int(userid)))
         data=mycursor.fetchall()
@@ -189,7 +189,7 @@ class Database:
         if(data):
             bools[3]=True
         data=None
-        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
+        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="2e7eabd469ec1f9", database="heroku_263577567345e1f")
         mycursor=mc.cursor()
         mycursor.execute("SELECT * FROM heroku_263577567345e1f.tennis Where userid=%d" %(int(userid)))
         data=mycursor.fetchall()
@@ -200,7 +200,7 @@ class Database:
         return bools
 
     def update_password(self, userid, password):
-        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
+        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="2e7eabd469ec1f9", database="heroku_263577567345e1f")
         mycursor=mc.cursor()
         mycursor.execute("UPDATE user_ SET password_ = '%s' WHERE userid = %d;" %(password, int(userid)))
         mc.commit()
@@ -209,7 +209,7 @@ class Database:
 
 
     def get_gym_registration(self, userid):
-        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
+        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="2e7eabd469ec1f9", database="heroku_263577567345e1f")
         mycursor=mc.cursor()
         mycursor.execute("SELECT * FROM heroku_263577567345e1f.gym Where userid=%d" %(int(userid)))
         data=mycursor.fetchall()
@@ -225,7 +225,7 @@ class Database:
             return False
 
     def get_carpet_registration(self, userid):
-        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
+        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="2e7eabd469ec1f9", database="heroku_263577567345e1f")
         mycursor=mc.cursor()
         mycursor.execute("SELECT * FROM heroku_263577567345e1f.carpet Where userid=%d" %(int(userid)))
         data=mycursor.fetchall()
@@ -241,7 +241,7 @@ class Database:
             return False
 
     def get_pool_registration(self, userid):
-        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
+        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="2e7eabd469ec1f9", database="heroku_263577567345e1f")
         mycursor=mc.cursor()
         mycursor.execute("SELECT * FROM heroku_263577567345e1f.pool Where userid=%d" %(int(userid)))
         data=mycursor.fetchall()
@@ -257,7 +257,7 @@ class Database:
             return False
 
     def get_tennis_registration(self, userid):
-        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
+        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="2e7eabd469ec1f9", database="heroku_263577567345e1f")
         mycursor=mc.cursor()
         mycursor.execute("SELECT * FROM heroku_263577567345e1f.tennis Where userid=%d" %(int(userid)))
         data=mycursor.fetchall()
@@ -273,7 +273,7 @@ class Database:
             return False        
 
     def check_tennis_res(self, date, time_slot, userid):
-        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
+        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="2e7eabd469ec1f9", database="heroku_263577567345e1f")
         mycursor=mc.cursor()
         mycursor.execute("SELECT * FROM heroku_263577567345e1f.tennis INNER JOIN heroku_263577567345e1f.tennis_res Where tennis_res.tennisid=tennis.tennisid and day_='%s' and userid=%d " %(str(date), int(userid)))
         data=mycursor.fetchall()
@@ -283,7 +283,7 @@ class Database:
             return "You cannot make double reservation for same day."
         else:
             tennis_id=self.get_tennis_registration(userid)
-            mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
+            mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="2e7eabd469ec1f9", database="heroku_263577567345e1f")
             mycursor=mc.cursor()
             mycursor.execute("INSERT INTO tennis_res(tennisid, day_, time_slot) VALUES(%d, '%s', '%s');" %(int(tennis_id), str(date), str(time_slot)))
             mc.commit()
@@ -292,7 +292,7 @@ class Database:
             return "You have reserved successfully."    
         
     def get_tennis_res_time(self, date):
-        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
+        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="2e7eabd469ec1f9", database="heroku_263577567345e1f")
         mycursor=mc.cursor()
         mycursor.execute("SELECT * FROM heroku_263577567345e1f.tennis_res Where day_='%s'" %(str(date)))
         data=mycursor.fetchall()
@@ -312,7 +312,7 @@ class Database:
 
     def get_tennis_res_user(self, userid):
         tennis_id=self.get_tennis_registration(userid)
-        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
+        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="2e7eabd469ec1f9", database="heroku_263577567345e1f")
         mycursor=mc.cursor()
         mycursor.execute("SELECT * FROM heroku_263577567345e1f.tennis_res Where tennisid=%d" %(int(tennis_id)))
         data=mycursor.fetchall()
@@ -325,7 +325,7 @@ class Database:
 
     def update_tennis_res(self, update_date, new_date, new_time, userid):
         tennis_id=self.get_tennis_registration(userid)
-        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
+        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="2e7eabd469ec1f9", database="heroku_263577567345e1f")
         mycursor=mc.cursor()
         mycursor.execute("UPDATE tennis_res SET day_ = '%s', time_slot = '%s' WHERE tennisid = %d and day_ = '%s'" %(new_date, new_time, int(tennis_id), update_date))
         mc.commit()
@@ -335,7 +335,7 @@ class Database:
 
     def delete_tennis_res(self, day, userid):
         tennis_id=self.get_tennis_registration(userid)
-        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
+        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="2e7eabd469ec1f9", database="heroku_263577567345e1f")
         mycursor=mc.cursor()
         mycursor.execute("DELETE FROM tennis_res WHERE tennisid = %d and day_ = '%s'" %(int(tennis_id), day))
         mc.commit()
@@ -344,7 +344,7 @@ class Database:
         return
 
     def check_carpet_res(self, date, time_slot, userid):  
-        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
+        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="2e7eabd469ec1f9", database="heroku_263577567345e1f")
         mycursor=mc.cursor()
         mycursor.execute("SELECT * FROM heroku_263577567345e1f.carpet INNER JOIN heroku_263577567345e1f.carpet_res Where carpet_res.carpetid=carpet.carpetid and day_='%s' and userid=%d " %(str(date), int(userid)))
         data=mycursor.fetchall()
@@ -354,7 +354,7 @@ class Database:
             return "You cannot make double reservation for same day."
         else:
             carpet_id=self.get_carpet_registration(userid)
-            mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
+            mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="2e7eabd469ec1f9", database="heroku_263577567345e1f")
             mycursor=mc.cursor()
             mycursor.execute("INSERT INTO carpet_res(carpetid, day_, time_slot) VALUES(%d, '%s', '%s');" %(int(carpet_id), str(date), str(time_slot)))
             mc.commit()
@@ -363,7 +363,7 @@ class Database:
             return "You have reserved successfully."    
         
     def get_carpet_res_time(self, date):
-        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
+        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="2e7eabd469ec1f9", database="heroku_263577567345e1f")
         mycursor=mc.cursor()
         mycursor.execute("SELECT * FROM heroku_263577567345e1f.carpet_res Where day_='%s'" %(str(date)))
         data=mycursor.fetchall()
@@ -383,7 +383,7 @@ class Database:
 
     def get_carpet_res_user(self, userid):
         carpet_id=self.get_carpet_registration(userid)
-        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
+        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="2e7eabd469ec1f9", database="heroku_263577567345e1f")
         mycursor=mc.cursor()
         mycursor.execute("SELECT * FROM heroku_263577567345e1f.carpet_res Where carpetid=%d" %(int(carpet_id)))
         data=mycursor.fetchall()
@@ -396,7 +396,7 @@ class Database:
 
     def update_carpet_res(self, update_date, new_date, new_time, userid):
         carpet_id=self.get_carpet_registration(userid)
-        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
+        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="2e7eabd469ec1f9", database="heroku_263577567345e1f")
         mycursor=mc.cursor()
         mycursor.execute("UPDATE carpet_res SET day_ = '%s', time_slot = '%s' WHERE carpetid = %d and day_ = '%s'" %(new_date, new_time, int(carpet_id), update_date))
         mc.commit()
@@ -406,7 +406,7 @@ class Database:
 
     def delete_carpet_res(self, day, userid):
         carpet_id=self.get_carpet_registration(userid)
-        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
+        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="2e7eabd469ec1f9", database="heroku_263577567345e1f")
         mycursor=mc.cursor()
         mycursor.execute("DELETE FROM carpet_res WHERE carpetid = %d and day_ = '%s'" %(int(carpet_id), day))
         mc.commit()
@@ -415,7 +415,7 @@ class Database:
         return
 
     def find_user(self, userid, username, password):
-        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
+        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="2e7eabd469ec1f9", database="heroku_263577567345e1f")
         mycursor=mc.cursor()
         mycursor.execute("SELECT * FROM heroku_263577567345e1f.user_ Where userid=%d and username='%s' and  password_='%s'" %(int(userid),username ,password))
         data=mycursor.fetchall()
@@ -442,7 +442,7 @@ class Database:
 
     def update_user(self,user,userid, old_userid):
         if((not self.get_user(userid)) or (int(userid)==int(old_userid))):
-            mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
+            mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="2e7eabd469ec1f9", database="heroku_263577567345e1f")
             mycursor=mc.cursor()
             mycursor.execute("UPDATE user_ SET userid=%d, username = '%s', password_ = '%s', name_surname = '%s', age = %d, status_='%s' WHERE userid = %d;" %(int(userid), user.username,user.password,user.name_surname ,int(user.age),user.status, int(old_userid)))
             mc.commit()
@@ -454,7 +454,7 @@ class Database:
  
 
     def delete_user(self, userid):
-        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
+        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="2e7eabd469ec1f9", database="heroku_263577567345e1f")
         mycursor=mc.cursor()
         mycursor.execute("DELETE FROM user_ WHERE userid = %d;" %(int(userid)))
         mc.commit()
@@ -463,7 +463,7 @@ class Database:
         return
 
     def delete_gym_registration(self, userid):
-        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
+        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="2e7eabd469ec1f9", database="heroku_263577567345e1f")
         mycursor=mc.cursor()
         mycursor.execute("DELETE FROM gym WHERE userid = %d;" %(int(userid)))
         mc.commit()
@@ -472,7 +472,7 @@ class Database:
         return
 
     def delete_carpet_registration(self, userid):
-        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
+        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="2e7eabd469ec1f9", database="heroku_263577567345e1f")
         mycursor=mc.cursor()
         mycursor.execute("DELETE FROM carpet WHERE userid = %d;" %(int(userid)))
         mc.commit()
@@ -481,7 +481,7 @@ class Database:
         return
 
     def delete_pool_registration(self, userid):
-        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
+        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="2e7eabd469ec1f9", database="heroku_263577567345e1f")
         mycursor=mc.cursor()
         mycursor.execute("DELETE FROM pool WHERE userid = %d;" %(int(userid)))
         mc.commit()
@@ -490,7 +490,7 @@ class Database:
         return
 
     def delete_tennis_registration(self, userid):
-        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
+        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="2e7eabd469ec1f9", database="heroku_263577567345e1f")
         mycursor=mc.cursor()
         mycursor.execute("DELETE FROM tennis WHERE userid = %d;" %(int(userid)))
         mc.commit()
@@ -500,7 +500,7 @@ class Database:
 
     def register_to_gym(self, userid):
         if(not self.get_gym_registration(userid)):
-            mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
+            mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="2e7eabd469ec1f9", database="heroku_263577567345e1f")
             mycursor=mc.cursor()
             mycursor.execute("INSERT INTO gym(userid) VALUES(%d);" %(int(userid)))
             mc.commit()
@@ -512,7 +512,7 @@ class Database:
 
     def register_to_carpet(self, userid):
         if(not self.get_carpet_registration(userid)):
-            mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
+            mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="2e7eabd469ec1f9", database="heroku_263577567345e1f")
             mycursor=mc.cursor()
             mycursor.execute("INSERT INTO carpet(userid) VALUES(%d);" %(int(userid)))
             mc.commit()
@@ -524,7 +524,7 @@ class Database:
 
     def register_to_pool(self, userid):
         if(not self.get_pool_registration(userid)):
-            mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
+            mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="2e7eabd469ec1f9", database="heroku_263577567345e1f")
             mycursor=mc.cursor()
             mycursor.execute("INSERT INTO pool(userid) VALUES(%d);" %(int(userid)))
             mc.commit()
@@ -536,7 +536,7 @@ class Database:
 
     def register_to_tennis(self, userid):
         if(not self.get_tennis_registration(userid)):
-            mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
+            mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="2e7eabd469ec1f9", database="heroku_263577567345e1f")
             mycursor=mc.cursor()
             mycursor.execute("INSERT INTO tennis(userid) VALUES(%d);" %(int(userid)))
             mc.commit()
@@ -550,7 +550,7 @@ class Database:
         number_of_reservations=[0,0,0,0,0,0,0]
         i=0
         while i<7:
-            mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
+            mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="2e7eabd469ec1f9", database="heroku_263577567345e1f")
             mycursor=mc.cursor()
             mycursor.execute("SELECT * FROM heroku_263577567345e1f.tennis_res Where day_='%s'" %(str(dates[i])))
             data=mycursor.fetchall()
@@ -565,7 +565,7 @@ class Database:
         number_of_reservations=[0,0,0,0,0,0,0]
         i=0
         while i<7:
-            mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
+            mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="2e7eabd469ec1f9", database="heroku_263577567345e1f")
             mycursor=mc.cursor()
             mycursor.execute("SELECT * FROM heroku_263577567345e1f.carpet_res Where day_='%s'" %(str(dates[i])))
             data=mycursor.fetchall()
@@ -577,7 +577,7 @@ class Database:
         return number_of_reservations
 
     def get_all_tennis_res_numbers(self):
-        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
+        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="2e7eabd469ec1f9", database="heroku_263577567345e1f")
         mycursor=mc.cursor()
         mycursor.execute("SELECT day_, COUNT(day_) FROM heroku_263577567345e1f.tennis_res group by day_;")
         data=mycursor.fetchall()
@@ -587,7 +587,7 @@ class Database:
         return data
 
     def get_all_carpet_res_numbers(self):
-        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="f189b700", database="heroku_263577567345e1f")
+        mc=mysql.connector.connect(host="eu-cdbr-west-03.cleardb.net", user="b801b6ee025905", password ="2e7eabd469ec1f9", database="heroku_263577567345e1f")
         mycursor=mc.cursor()
         mycursor.execute("SELECT day_, COUNT(day_) FROM heroku_263577567345e1f.carpet_res group by day_;")
         data=mycursor.fetchall()
